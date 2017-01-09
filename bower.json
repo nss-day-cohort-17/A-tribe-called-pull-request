@@ -1,0 +1,17 @@
+{
+  "name": "A-tribe-called-pull-request",
+  "homepage": "https://github.com/nss-day-cohort-17/A-tribe-called-pull-request",
+  "authors": [
+    "Michael Tambornino <michael.tambornino@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
