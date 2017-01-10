@@ -1,8 +1,9 @@
 // define variables
 let searchInput = $('#searchInput')
+let searchResults
 
 // set up new promise factory
-function fetch (url) {
+function getMovies (url) {
    return new Promise (function (res, rej) {
       var xhr = new XMLHttpRequest ()
       xhr.addEventListener ('load', function(evt) {
@@ -17,9 +18,16 @@ function fetch (url) {
    })
 }
 
-function getMovie (url) {
-   return fetch(url).then(JSON.parse)
+function parseMovies(url) {
+   return getMovies(url).then(JSON.parse)
 }
 
 // add listener for input field
-$('#searchInput').keypress(getMovie(`http://www.omdbapi.com/?s=${searchInput.val()}`))
+$('#searchInput').keyup(function(e) {
+   if (e.originalEvent.code === "Enter") {
+      searchResults = parseMovies(`http://www.omdbapi.com/?s=${searchInput.val()}`))
+   }
+})
+
+
+// populate searchResults div with search results
