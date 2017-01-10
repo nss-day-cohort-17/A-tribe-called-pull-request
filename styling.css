@@ -20,5 +20,6 @@
 }
 
 .movieCard img {
-max-width: 100px;
+   padding: 0;
+   margin: 0;
 }

@@ -36,7 +36,7 @@ function showResults (x) {
          <a href="#">
             <div class="movieCard text-center col-xs-6 col-sm-4 col-lg-2 col-md-3">
                <h5>${x.Search[i].Title}</h4>
-               <img src="${x.Search[i].Poster}" />
+               <img class="img-responsive" src="${x.Search[i].Poster}" />
                <h6>${x.Search[i].Year}</h3>
             </div>
          </a>
