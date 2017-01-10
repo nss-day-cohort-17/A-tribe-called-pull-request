@@ -5,7 +5,20 @@
    background-color: #8dbb11;
 }
 
+/* search input box */
 #searchInput {
    font-family: 'Questrial', sans-serif;
    font-size: 1em;
+}
+
+/* movie card styling */
+.movieCard {
+   border: 1px black solid;
+   box-shadow: 1px 1px 1px 1px;
+   border-radius: 3px;
+   margin: 1%;
+}
+
+.movieCard img {
+max-width: 100px;
 }
