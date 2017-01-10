@@ -1,0 +1,11 @@
+/* navbar styling */
+.navbar {
+   font-family: 'Bungee Shade', cursive;
+   font-size: 1.5em;
+   background-color: #8dbb11;
+}
+
+#searchInput {
+   font-family: 'Questrial', sans-serif;
+   font-size: 1em;
+}
