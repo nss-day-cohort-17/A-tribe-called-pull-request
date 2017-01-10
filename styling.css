@@ -34,6 +34,7 @@ body {
    box-shadow: 1px 1px 1px 1px;
    border-radius: 3px;
    margin: 1%;
+   background-color: white;
 }
 
 .movieCard img {
