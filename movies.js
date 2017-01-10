@@ -32,13 +32,14 @@ function showResults (x) {
       console.log(x)
       resetSearch()
    for (let i = 0; i < x.Search.length; i++) {
-      console.log(i)
       $('#searchResults').append(`
-         <div class="add-remove col-xs-6 col-sm-4 col-lg-2 col-md-3">
-            <h5>${x.Search[i].Title}</h4>
-            <h6>${x.Search[i].Year}</h3>
-            <a></a>
-         </div>
+         <a href="#">
+            <div class="movieCard text-center col-xs-6 col-sm-4 col-lg-2 col-md-3">
+               <h5>${x.Search[i].Title}</h4>
+               <img class="img-responsive" src="${x.Search[i].Poster}" />
+               <h6>${x.Search[i].Year}</h3>
+            </div>
+         </a>
       `)
    }
 }
