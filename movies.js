@@ -18,24 +18,35 @@ function getMovies (url) {
    })
 }
 
+// promise chain to parse and populate
 function parseMovies(url) {
-   return getMovies(url).then(JSON.parse)
+   getMovies(url)
+      .then(function(movie) {
+         return JSON.parse(movie)
+      })
+      .then(showResults)
 }
 
 // function to populate searchResults div with search results
 function showResults (x) {
-   for (let i = 0; i < x.length; i++) {
+      console.log(x)
+      resetSearch()
+   for (let i = 0; i < x.Search.length; i++) {
       console.log(i)
       $('#searchResults').append(`
-         <h4>${x[i].Title}</h4>
+         <h4>${x.Search[i].Title}</h4>
       `)
    }
+}
+
+// reset search field
+function resetSearch() {
+   $('#searchResults').empty()
 }
 
 // add listener for input field
 $('#searchInput').keyup(function(e) {
    if (e.originalEvent.code === "Enter") {
-      showResults(parseMovies(`http://www.omdbapi.com/?s=${searchInput.val()}`))
-      // showResults(data)
+      parseMovies(`http://www.omdbapi.com/?s=${searchInput.val()}`)
    }
 })
