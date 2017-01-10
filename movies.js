@@ -34,7 +34,11 @@ function showResults (x) {
    for (let i = 0; i < x.Search.length; i++) {
       console.log(i)
       $('#searchResults').append(`
-         <h4>${x.Search[i].Title}</h4>
+         <div class="col-xs-6 col-sm-4 col-lg-2 col-md-3">
+            <h5>${x.Search[i].Title}</h4>
+            <h6>${x.Search[i].Year}</h3>
+            <a></a>
+         </div>
       `)
    }
 }
@@ -44,7 +48,7 @@ function resetSearch() {
    $('#searchResults').empty()
 }
 
-// add listener for input field
+// add listener for input field on enter key
 $('#searchInput').keyup(function(e) {
    if (e.originalEvent.code === "Enter") {
       parseMovies(`http://www.omdbapi.com/?s=${searchInput.val()}`)
