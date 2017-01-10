@@ -7,11 +7,13 @@
     border: .2em solid #9E9E9E;
 }
 
+
 .navbar-brand {
     color: black !important;
 }
 
 
+/* search input box */
 #searchInput {
    font-family: 'Questrial', sans-serif;
    font-size: 1em;
@@ -24,4 +26,17 @@
 
 body {
     background-color: #B0BEC5;
+}
+
+/* movie card styling */
+.movieCard {
+   border: 1px black solid;
+   box-shadow: 1px 1px 1px 1px;
+   border-radius: 3px;
+   margin: 1%;
+}
+
+.movieCard img {
+   padding: 0;
+   margin: 0;
 }
