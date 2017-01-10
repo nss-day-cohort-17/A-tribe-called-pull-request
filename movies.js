@@ -7,7 +7,6 @@ function fetch (url) {
       var xhr = new XMLHttpRequest ()
       xhr.addEventListener ('load', function(evt) {
          if (evt.target.status < 400) {
-            console.log(evt.target.responseText)
             res(evt.target.responseText)
          } else {
             rej(evt.target.status)
