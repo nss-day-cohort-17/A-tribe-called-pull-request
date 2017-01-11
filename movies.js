@@ -1,6 +1,7 @@
 // define variables
 let searchInput = $('#searchInput')
 let data
+let imdbIDs = []
 
 // new promise factory to get array of movies
 function getData (url) {
@@ -25,21 +26,20 @@ function parseMovies(url) {
          return JSON.parse(movie)
       })
       .then(showResults)
-      .then(getActors)
-      .then(showActors)
+      // .then(getActors)
+      // .then(showActors)
       .catch(function() {
          alert('No search results found')
       })
 }
 
-function getActors () {
-   for (let j = 0; j < x.Search.length; j++) {
-      getData(`http://www.omdbapi.com/?i=${x.Search[j].imdbID}`)
-         .then(function (actors) {
-            return JSON.parse(actors)
-         })
-   }
-}
+// function getActors () {
+//       getData(`http://www.omdbapi.com/?i=${}`)
+//          .then(function (actors) {
+//             return JSON.parse(actors)
+//          })
+//    }
+// }
 
 // function to populate searchResults div with search results
 function showResults (x) {
@@ -53,11 +53,13 @@ function showResults (x) {
                <img class="img-responsive" src="${x.Search[i].Poster}" />
                <h6>${x.Search[i].Year}</h3>
 
-               // <p class="movieInfo" id="actorInfo">http://www.omdbapi.com/?s=</p>
-               // <div id="actorContent" class="actor">Actors: </div>
             </div>
          </a>
       `)
+   }
+   // grab movie ID for each search result
+   for (let j = 0; j < x.Search.length; j++) {
+      imdbIDs.push(x.Search[j].imdbID)
    }
 }
 
