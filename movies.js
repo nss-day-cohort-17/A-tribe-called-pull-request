@@ -35,9 +35,10 @@ function showResults (x) {
       $('#searchResults').append(`
          <a href="#">
             <div class="movieCard text-center col-xs-6 col-sm-4 col-lg-2 col-md-3">
-               <h5>${x.Search[i].Title}</h4>
+               <h5>${x.Search[i].Title}</h5>
                <img class="img-responsive" src="${x.Search[i].Poster}" />
-               <h6>${x.Search[i].Year}</h3>
+               <h6>${x.Search[i].Year}</h6>
+               <span class="glyphicon glyphicon-plus-sign"></span> <span class="glyphicon glyphicon-minus-sign"></span>
             </div>
          </a>
       `)
@@ -58,6 +59,6 @@ $('#searchInput').keyup(function(e) {
 
 //ADD-REMOVE BUTTONS*******************
 //create add button for DI card, function will add movie to personal firebase object
-$(".add-remove a").append("<span class='glyphicon glyphicon-plus'</span>")
+
 
 //create remove button for DI card, function will remove movie from personal firebase object
