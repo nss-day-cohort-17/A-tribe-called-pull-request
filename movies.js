@@ -60,14 +60,14 @@ function showResults (obj) {
    // create a card for each search result
    for (let i = 0; i < obj.Search.length; i++) {
       $('#searchResults').append(`
-         <a href="#">
-            <div class="movieCard text-center col-xs-6 col-sm-4 col-lg-2 col-md-3">
-               <h5>${obj.Search[i].Title}</h4>
-               <img class="img-responsive" src="${obj.Search[i].Poster}" />
-               <h6>${obj.Search[i].Year}</h3>
+            <a href="#">
+               <div class="movieCard text-center col-xs-6 col-sm-4 col-lg-2 col-md-3">
+                  <h5>${obj.Search[i].Title}</h4>
+                  <img class="img-responsive" src="${obj.Search[i].Poster}" />
+                  <h6>${obj.Search[i].Year}</h3>
 
-            </div>
-         </a>
+               </div>
+            </a>
       `)
    }
 }

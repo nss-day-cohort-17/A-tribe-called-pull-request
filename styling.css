@@ -22,13 +22,16 @@
     padding: 1em;
     border: 2px solid #7f8c8d;
     align-items: center;
-    justify-content: space-around;
 }
 
 body {
     background-color: #B0BEC5;
-    display: flexbox;
-    align-content: flex-start;
+}
+
+div#searchResults {
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*flex-flow: row wrap;*/
 }
 
 /* movie card styling */
@@ -38,6 +41,7 @@ body {
    border-radius: 3px;
    margin: 1%;
    background-color: white;
+   max-height: 300em;
 }
 
 .movieCard img {
