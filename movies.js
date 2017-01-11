@@ -1,9 +1,13 @@
 // define variables
 let searchInput = $('#searchInput')
-let data;
 
-// set up new promise factory
-function getMovies (url) {
+let data
+let imdbIDs = []
+let movieInfo = {}
+
+
+// new promise factory to get array of movies
+function getData (url) {
    return new Promise (function (res, rej) {
       var xhr = new XMLHttpRequest ()
       xhr.addEventListener ('load', function(evt) {
@@ -18,32 +22,61 @@ function getMovies (url) {
    })
 }
 
-// promise chain to parse and populate
+// ----- PROMISE CHAIN to parse and populate ------
 function parseMovies(url) {
-   getMovies(url)
+   getData(url)
       .then(function(movie) {
          return JSON.parse(movie)
       })
       .then(showResults)
+
+      .then(getIDs)
+      // .then(showActors)
+      .catch(function() {
+         alert('No search results found')
+      })
+}
+
+
+function getIDs () {
+   for (let i = 0; i < imdbIDs.length; i++) {
+      getData(`http://www.omdbapi.com/?i=${imdbIDs[i]}`)
+         .then(function (id) {
+            return JSON.parse(id)
+         })
+         .then( function (x) {
+            movieInfo[i] = x
+         })
+   }
+
       .then(movieRate)
 }
 
 // function to populate searchResults div with search results
-function showResults (x) {
-      console.log(x)
-      resetSearch()
-   for (let i = 0; i < x.Search.length; i++) {
+function showResults (obj) {
+   console.log(obj)
+   resetSearch()
+
+   // grab movie ID for each search result
+   for (let j = 0; j < obj.Search.length; j++) {
+      imdbIDs.push(obj.Search[j].imdbID)
+   }
+
+   // create a card for each search result
+   for (let i = 0; i < obj.Search.length; i++) {
       $('#searchResults').append(`
-         <a href="#">
-            <div class="movieCard text-center col-xs-6 col-sm-4 col-lg-2 col-md-3">
-               <h5>${x.Search[i].Title}</h5>
-               <img class="img-responsive" src="${x.Search[i].Poster}" />
-               <h6>${x.Search[i].Year}</h6>
-               <span class="glyphicon glyphicon-plus-sign"></span> <span class="glyphicon glyphicon-minus-sign"></span>
-               <label for="#rating">Rating</label>
-               <input class="rating" id="rating" type="text" maxlength="1"></input>
-            </div>
-         </a>
+
+            <a href="#">
+                <div class="movieCard text-center col-xs-6 col-sm-4 col-lg-2 col-md-3">
+                  <h5>${obj.Search[i].Title}</h5>
+                  <img class="img-responsive" src="${obj.Search[i].Poster}" />
+                  <h6>${obj.Search[i].Year}</h6>
+                  <span class="glyphicon glyphicon-plus-sign"></span> <span class="glyphicon glyphicon-minus-sign"></span>
+                  <label for="#rating">Rating</label>
+                  <input class="rating" id="rating" type="text" maxlength="1"></input>
+              </div>
+            </a>
+
       `)
    }
 }
@@ -61,6 +94,19 @@ $('#searchInput').keyup(function(e) {
 
 })
 
+
+
+// function to show major actors on hover of item
+function showActors () {
+   $('.movieCard').hover(
+      function(e) {
+         $(this).addClass()
+      },
+      function() {
+         $(this).removeClass()
+      }
+   )
+
 //ADD-REMOVE BUTTONS*******************
 //create add button for DI card, function will add movie to personal firebase object
 
@@ -75,4 +121,5 @@ $(".rating").keyup(function(e) {
    // return $rating
    console.log($rating)
 })
+
 }
