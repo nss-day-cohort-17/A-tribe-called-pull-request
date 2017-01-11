@@ -1,6 +1,6 @@
 // define variables
 let searchInput = $('#searchInput')
-let data
+let data;
 
 // set up new promise factory
 function getMovies (url) {
@@ -25,6 +25,7 @@ function parseMovies(url) {
          return JSON.parse(movie)
       })
       .then(showResults)
+      .then(movieRate)
 }
 
 // function to populate searchResults div with search results
@@ -35,9 +36,12 @@ function showResults (x) {
       $('#searchResults').append(`
          <a href="#">
             <div class="movieCard text-center col-xs-6 col-sm-4 col-lg-2 col-md-3">
-               <h5>${x.Search[i].Title}</h4>
+               <h5>${x.Search[i].Title}</h5>
                <img class="img-responsive" src="${x.Search[i].Poster}" />
-               <h6>${x.Search[i].Year}</h3>
+               <h6>${x.Search[i].Year}</h6>
+               <span class="glyphicon glyphicon-plus-sign"></span> <span class="glyphicon glyphicon-minus-sign"></span>
+               <label for="#rating">Rating</label>
+               <input class="rating" id="rating" type="text" maxlength="1"></input>
             </div>
          </a>
       `)
@@ -54,4 +58,21 @@ $('#searchInput').keyup(function(e) {
    if (e.originalEvent.code === "Enter") {
       parseMovies(`http://www.omdbapi.com/?s=${searchInput.val()}`)
    }
+
 })
+
+//ADD-REMOVE BUTTONS*******************
+//create add button for DI card, function will add movie to personal firebase object
+
+
+//create remove button for DI card, function will remove movie from
+// personal firebase object
+
+//RATING INPUT*********************
+function movieRate() {
+$(".rating").keyup(function(e) {
+   var $rating = $(e.currentTarget).val()
+   // return $rating
+   console.log($rating)
+})
+}

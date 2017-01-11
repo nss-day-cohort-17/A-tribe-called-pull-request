@@ -40,3 +40,24 @@ body {
    padding: 0;
    margin: 0;
 }
+
+.glyphicon {
+   float: left;
+}
+
+.rating {
+   max-width: 15px;
+}
+
+.movieCard label {
+   position: absolute;
+   bottom: 5px
+
+}
+
+#rating,
+.rating {
+   position: ;
+   bottom: 0px;
+   right: 25px;
+}
