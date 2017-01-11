@@ -1,3 +1,4 @@
+
 /* navbar styling */
 .navbar {
    font-family: 'Bungee Shade', cursive;
@@ -26,6 +27,8 @@
 
 body {
     background-color: #B0BEC5;
+    display: flexbox;
+    align-content: flex-start;
 }
 
 /* movie card styling */
