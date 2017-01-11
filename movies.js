@@ -20,7 +20,7 @@ function getData (url) {
    })
 }
 
-// ----- promise chain to parse and populate ------
+// ----- PROMISE CHAIN to parse and populate ------
 function parseMovies(url) {
    getData(url)
       .then(function(movie) {
@@ -39,34 +39,36 @@ function getIDs () {
    for (let i = 0; i < imdbIDs.length; i++) {
       getData(`http://www.omdbapi.com/?i=${imdbIDs[i]}`)
          .then(function (id) {
-            JSON.parse(id)
+            return JSON.parse(id)
+         })
+         .then( function (x) {
+            movieInfo[i] = x
          })
    }
 }
 
 // function to populate searchResults div with search results
-function showResults (x) {
-   console.log(x)
+function showResults (obj) {
+   console.log(obj)
    resetSearch()
 
    // grab movie ID for each search result
-   for (let j = 0; j < x.Search.length; j++) {
-      imdbIDs.push(x.Search[j].imdbID)
+   for (let j = 0; j < obj.Search.length; j++) {
+      imdbIDs.push(obj.Search[j].imdbID)
+   }
 
    // create a card for each search result
-   for (let i = 0; i < x.Search.length; i++) {
+   for (let i = 0; i < obj.Search.length; i++) {
       $('#searchResults').append(`
          <a href="#">
             <div class="movieCard text-center col-xs-6 col-sm-4 col-lg-2 col-md-3">
-               <h5>${x.Search[i].Title}</h4>
-               <img class="img-responsive" src="${x.Search[i].Poster}" />
-               <h6>${x.Search[i].Year}</h3>
+               <h5>${obj.Search[i].Title}</h4>
+               <img class="img-responsive" src="${obj.Search[i].Poster}" />
+               <h6>${obj.Search[i].Year}</h3>
 
             </div>
          </a>
       `)
-   }
-
    }
 }
 
