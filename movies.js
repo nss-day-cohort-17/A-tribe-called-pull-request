@@ -23,14 +23,13 @@ function getData (url) {
 }
 
 // ----- PROMISE CHAIN to parse and populate ------
-function parseMovies(url) {
+function promiseChain(url) {
    getData(url)
       .then(function(movie) {
          return JSON.parse(movie)
       })
       .then(getIDs)
       .then(parseIDs)
-      // .then(showResults)
       // .then(addMovie)
       // .then(showActors)
       .catch(function() {
@@ -48,6 +47,7 @@ function parseIDs (ids) {
          })
          .then(function (x) {
             movieInfo[i] = x;
+      // populate searchResults div with search results
             $('#searchResults').append(`
                <div class="movieCard text-center col-xs-6 col-sm-4 col-lg-2 col-md-3">
                      <h5>${movieInfo[i].Title}</h5>
@@ -64,7 +64,6 @@ function parseIDs (ids) {
          })
 
    }
-   // console.log(movieInfo)
    return movieInfo
 }
 
@@ -78,27 +77,6 @@ function getIDs (result) {
    return imdbIDs
 }
 
-// function to populate searchResults div with search results
-function showResults () {
-   console.log(movieInfo)
-   let thumbnails = ""
-   //  create a card for each search result
-   for (let i = 0; i < movieInfo.length; i++) {
-      thumbnails += `
-               <div class="movieCard text-center col-xs-6 col-sm-4 col-lg-2 col-md-3">
-                     <h5>${movieInfo[i].Title}</h5>
-                     <img class="img-responsive" src="${movieInfo[i].Poster}" />
-                     <h6>${movieInfo[i].Year}</h6>
-                     <a><span class="glyphicon glyphicon-plus-sign"></span></a>
-                     <a><span class="glyphicon glyphicon-minus-sign"></span></a>
-                     <label for="#rating">Rating</label>
-                     <input class="rating" id="rating" type="text" maxlength="1"></input>
-               </div>`
-   }
-   $('#searchResults').html(thumbnails)
-}
-
-
 // reset search field
 function resetSearch() {
    movieInfo = []
@@ -110,7 +88,7 @@ function resetSearch() {
 $('#searchInput').keydown(function(e) {
    if (e.originalEvent.code === "Enter") {
       resetSearch()
-      parseMovies(`http://www.omdbapi.com/?s=${searchInput.val()}`)
+      promiseChain(`http://www.omdbapi.com/?s=${searchInput.val()}`)
    }
 
 })
@@ -178,7 +156,7 @@ $('#searchInput').focus(() => {
 
 // add to fireBase on add button click
 function addMovie () {
-   $('.glyphicon-plus-sign').click(putMovie())
+   $('.glyphicon-plus-sign').click(putMovie(e))
 }
 
 
