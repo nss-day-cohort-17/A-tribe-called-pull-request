@@ -129,6 +129,45 @@ function showActors () {
    )
 }
 
+
+//REGISTER FUNCTION********************
+$('.register').click((e) => {
+   $('.register-page').removeClass('hidden')
+   $('.login-page').addClass('hidden')
+   console.log('hi')
+   var email = $('input[type="email"]').val();
+   var password = $('input[type="password"]').val();
+   // firebase.auth().createUserWithEmailAndPassword(email, password)
+   // .catch(function(error) {
+   //    alert("Woops!")
+   // })
+   console.log(email)
+})
+
+//log in
+$('.login').click(function(e) {
+   $('.login-page').removeClass('hidden')
+   $('.register-page').addClass('hidden')
+   var email = $('input[type="email"]').val();
+   var password = $('input[type="password"]').val();
+  // firebase
+  //  .auth()
+  //  .signInWithEmailAndPassword(email, password)
+
+  //  e.preventDefault();
+})
+
+//sign out
+// $('.sign-out').click((e) => {
+//    firebase.auth().signOut()
+//    console.log("You are signed out");
+
+//Search Input Override
+$('#searchInput').focus(() => {
+   $('.login-page').addClass('hidden')
+   $('.register-page').addClass('hidden')
+})
+
 //  'PUT' a movie onto fireBase
 // function putMovie () {
 //    var xhr = new XMLHttpRequest ()
@@ -141,6 +180,7 @@ function showActors () {
 function addMovie () {
    $('.glyphicon-plus-sign').click(putMovie())
 }
+
 
 //ADD-REMOVE BUTTONS*******************
 //create add button for DI card, function will add movie to personal firebase object

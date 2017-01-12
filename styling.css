@@ -24,6 +24,10 @@
     align-items: center;
 }
 
+input {
+  max-width: 300px;
+}
+
 body {
     background-color: #B0BEC5;
 }
