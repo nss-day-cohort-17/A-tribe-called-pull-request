@@ -48,12 +48,22 @@ function parseIDs (ids) {
          })
          .then(function (x) {
             movieInfo[i] = x;
+            $('#searchResults').append(`
+               <div class="movieCard text-center col-xs-6 col-sm-4 col-lg-2 col-md-3">
+                     <h5>${movieInfo[i].Title}</h5>
+                     <img class="img-responsive" src="${movieInfo[i].Poster}" />
+                     <h6>${movieInfo[i].Year}</h6>
+                     <a><span class="glyphicon glyphicon-plus-sign"></span></a>
+                     <a><span class="glyphicon glyphicon-minus-sign"></span></a>
+                     <label for="#rating">Rating</label>
+                     <input class="rating" id="rating" type="text" maxlength="1"></input>
+               </div>`)
          })
          .catch(() => {
             console.log('Could not get movie IDs')
          })
+
    }
-   setTimeout(showResults(), 3000)
    // console.log(movieInfo)
    return movieInfo
 }
@@ -91,13 +101,15 @@ function showResults () {
 
 // reset search field
 function resetSearch() {
-   $('#searchResults').empty()
+   movieInfo = []
+   imdbIDs = []
+   $('#searchResults').html("")
 }
 
 // add listener for input field on enter key
 $('#searchInput').keydown(function(e) {
    if (e.originalEvent.code === "Enter") {
-      // resetSearch()
+      resetSearch()
       parseMovies(`http://www.omdbapi.com/?s=${searchInput.val()}`)
    }
 
