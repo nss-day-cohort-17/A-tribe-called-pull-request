@@ -22,11 +22,12 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-               <li><a href="#">Register</a></li>
+               <li><a class="register" href="#">Register</a>
+               </li>
                <li>   </li>
-               <li><a href="#">Login</a></li>
+               <li><a class="login" href="#">Login</a></li>
                <li>    </li>
-               <li><a href="#">* My Movies *</a></li>
+               <li><a class="my-movies" href="#">* My Movies *</a></li>
 
             </ul>
 
@@ -38,7 +39,30 @@
          </div>
       </div>
    </nav>
-
+   <!-- Registration -->
+   <div class="register-page hidden">
+      <form>
+            <div class="form-group">
+               <input type="email" class="form-control" placeholder="Email">
+            </div>
+            <div class="form-group">
+               <input type="password" class="form-control" placeholder="Password">
+            </div>
+            <button class="btn btn-warning register">Register</button>
+      </form>
+   </div>
+   <!-- Login -->
+   <div class="login-page hidden">
+         <form>
+            <div class="form-group">
+               <input type="email" class="form-control" placeholder="Email">
+            </div>
+            <div class="form-group">
+               <input type="password" class="form-control" placeholder="Password">
+            </div>
+            <button class="btn btn-warning register">Login</button>
+      </form>
+   </div>
    <div class="container row" id="searchResults">
 
    </div>
