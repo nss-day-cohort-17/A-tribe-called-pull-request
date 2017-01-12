@@ -3,7 +3,7 @@ let searchInput = $('#searchInput')
 
 let data
 let imdbIDs = []
-let movieInfo = {}
+let movieInfo = []
 
 
 // new promise factory to get array of movies
@@ -28,9 +28,10 @@ function parseMovies(url) {
       .then(function(movie) {
          return JSON.parse(movie)
       })
-      .then(showResults)
-
       .then(getIDs)
+      .then(parseIDs)
+      // .then(showResults)
+      // .then(addMovie)
       // .then(showActors)
       .catch(function() {
          alert('No search results found')
@@ -38,55 +39,77 @@ function parseMovies(url) {
 }
 
 
-function getIDs () {
-   for (let i = 0; i < imdbIDs.length; i++) {
-      getData(`http://www.omdbapi.com/?i=${imdbIDs[i]}`)
+function parseIDs (ids) {
+
+   for (let i = 0; i < ids.length; i++) {
+      getData(`http://www.omdbapi.com/?i=${ids[i]}`)
          .then(function (id) {
             return JSON.parse(id)
          })
-         .then( function (x) {
-            movieInfo[i] = x
+         .then(function (x) {
+            movieInfo[i] = x;
+            $('#searchResults').append(`
+               <div class="movieCard text-center col-xs-6 col-sm-4 col-lg-2 col-md-3">
+                     <h5>${movieInfo[i].Title}</h5>
+                     <img class="img-responsive" src="${movieInfo[i].Poster}" />
+                     <h6>${movieInfo[i].Year}</h6>
+                     <a><span class="glyphicon glyphicon-plus-sign"></span></a>
+                     <a><span class="glyphicon glyphicon-minus-sign"></span></a>
+                     <label for="#rating">Rating</label>
+                     <input class="rating" id="rating" type="text" maxlength="1"></input>
+               </div>`)
          })
+         .catch(() => {
+            console.log('Could not get movie IDs')
+         })
+
    }
-      // .then(movieRate)
+   // console.log(movieInfo)
+   return movieInfo
+}
+
+
+function getIDs (result) {
+   console.log(result)
+   // grab movie ID for each search result
+   for (let j = 0; j < result.Search.length; j++) {
+      imdbIDs.push(result.Search[j].imdbID)
+   }
+   return imdbIDs
 }
 
 // function to populate searchResults div with search results
-function showResults (obj) {
-   console.log(obj)
-   resetSearch()
-
-   // grab movie ID for each search result
-   for (let j = 0; j < obj.Search.length; j++) {
-      imdbIDs.push(obj.Search[j].imdbID)
+function showResults () {
+   console.log(movieInfo)
+   let thumbnails = ""
+   //  create a card for each search result
+   for (let i = 0; i < movieInfo.length; i++) {
+      thumbnails += `
+               <div class="movieCard text-center col-xs-6 col-sm-4 col-lg-2 col-md-3">
+                     <h5>${movieInfo[i].Title}</h5>
+                     <img class="img-responsive" src="${movieInfo[i].Poster}" />
+                     <h6>${movieInfo[i].Year}</h6>
+                     <a><span class="glyphicon glyphicon-plus-sign"></span></a>
+                     <a><span class="glyphicon glyphicon-minus-sign"></span></a>
+                     <label for="#rating">Rating</label>
+                     <input class="rating" id="rating" type="text" maxlength="1"></input>
+               </div>`
    }
-
-   // create a card for each search result
-   for (let i = 0; i < obj.Search.length; i++) {
-      $('#searchResults').append(`
-
-                <div class="movieCard text-center col-xs-6 col-sm-4 col-lg-2 col-md-3">
-                  <h5>${obj.Search[i].Title}</h5>
-                  <img class="img-responsive" src="${obj.Search[i].Poster}" />
-                  <h6>${obj.Search[i].Year}</h6>
-                  <a><span class="glyphicon glyphicon-plus-sign"></span></a>
-                  <a><span class="glyphicon glyphicon-minus-sign"></span></a>
-                  <label for="#rating">Rating</label>
-                  <input class="rating" id="rating" type="text" maxlength="1"></input>
-              </div>
-
-      `)
-   }
+   $('#searchResults').html(thumbnails)
 }
+
 
 // reset search field
 function resetSearch() {
-   $('#searchResults').empty()
+   movieInfo = []
+   imdbIDs = []
+   $('#searchResults').html("")
 }
 
 // add listener for input field on enter key
-$('#searchInput').keyup(function(e) {
+$('#searchInput').keydown(function(e) {
    if (e.originalEvent.code === "Enter") {
+      resetSearch()
       parseMovies(`http://www.omdbapi.com/?s=${searchInput.val()}`)
    }
 
@@ -104,6 +127,19 @@ function showActors () {
          $(this).removeClass()
       }
    )
+}
+
+//  'PUT' a movie onto fireBase
+// function putMovie () {
+//    var xhr = new XMLHttpRequest ()
+//    xhr.addEventListener ('load', function() {})
+//    xhr.open ('POST', 'https://movie-madness-d8291.firebaseio.com/fu/.json' )
+//    xhr.send()
+// }
+
+// add to fireBase on add button click
+function addMovie () {
+   $('.glyphicon-plus-sign').click(putMovie())
 }
 
 //ADD-REMOVE BUTTONS*******************
