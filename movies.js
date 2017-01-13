@@ -49,18 +49,17 @@ function parseIDs (ids) {
             movieInfo[i] = x;
       // populate searchResults div with search results
             $('#searchResults').append(`
-               <div class="movieCard text-center col-xs-6 col-sm-4 col-lg-2 col-md-3">
+               <div class="movieCard text-center">
                      <h5>${movieInfo[i].Title}</h5>
                      <img class="img-responsive" src="${movieInfo[i].Poster}" />
                      <h6>${movieInfo[i].Year}</h6>
                      <a><span class="glyphicon glyphicon-plus-sign"></span></a>
                      <a><span class="glyphicon glyphicon-minus-sign"></span></a>
-                     <label for="#rating">Rating</label>
-                     <input class="rating" id="rating" type="text" maxlength="1"></input>
+                     <span>Rating: <input class="rating" id="rating" type="text" maxlength="1" /></span>
                </div>`)
          })
-         .catch(() => {
-            console.log('Could not get movie IDs')
+         .catch((err) => {
+            console.log(err)
          })
 
    }
@@ -69,7 +68,7 @@ function parseIDs (ids) {
 
 
 function getIDs (result) {
-   console.log(result)
+   console.log(result.Error)
    // grab movie ID for each search result
    for (let j = 0; j < result.Search.length; j++) {
       imdbIDs.push(result.Search[j].imdbID)
@@ -111,6 +110,7 @@ function showActors () {
 // show register page on register tab click
 $('.register-tab').click((e) => {
    $('form')[1].reset()
+   $('#searchResults').html("")
    $('.register-page').removeClass('hidden')
    $('.login-page').addClass('hidden')
 })
@@ -118,6 +118,7 @@ $('.register-tab').click((e) => {
 // show user login on login tab click
 $('.login-tab').click((e) => {
    $('form')[0].reset()
+   $('#searchResults').html("")
    $('.login-page').removeClass('hidden')
    $('.register-page').addClass('hidden')
 })
