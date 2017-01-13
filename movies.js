@@ -52,15 +52,23 @@ function parseIDs (ids) {
                      <h5>${movieInfo[i].Title}</h5>
                      <img class="img-responsive" src="${movieInfo[i].Poster}" />
                      <h6>${movieInfo[i].Year}</h6>
-                     <a><span class="glyphicon glyphicon-plus-sign"></span></a>
-                     <a><span class="glyphicon glyphicon-minus-sign"></span></a>
-                     <span>Rating: <input class="rating" id="rating" type="text" maxlength="1" /></span>
+                     <a><span class="glyphicon glyphicon-plus-sign add"></span></a>
+                     <a><span class="glyphicon glyphicon-minus-sign remove"></span></a>
+                     <label for="#rating">Rating</label>
+                     <input class="rating" id="rating" type="text" maxlength="1"></input>
+                     <p class="hidden">${movieInfo[i].imdbID}</p>
                </div>`)
          })
-         .catch((err) => {
-            console.log(err)
-         })
-
+         .then(function() {
+            if(i === ids.length - 1) {
+         addMovie();
+         removeMovie();
+         console.log(movieInfo)
+      }
+      })
+         .catch(() => {
+            console.log('Could not get movie IDs')
+      })
    }
    return movieInfo
 }
@@ -131,14 +139,20 @@ $('#searchInput').focus(() => {
 })
 
 
-
-
-
 //ADD-REMOVE BUTTONS*******************
 //create add button for DI card, function will add movie to personal firebase object
-
+function addMovie() {
+   $('.add').click(function(e) {
+   console.log(e.currentTarget)
+   })
+}
 
 //create remove button for DI card, function will remove movie from
+function removeMovie() {
+   $('.remove').click(function(e) {
+      console.log(e.currentTarget)
+   })
+}
 // personal firebase object
 
 //RATING INPUT*********************

@@ -9,7 +9,7 @@
 }
 
 .navbar-brand {
-  color: black !important;
+  color: black;
 }
 
 
@@ -24,6 +24,7 @@
   align-items: center;
 }
 
+/*email and password inputs*/
 input {
   max-width: 300px;
 }
@@ -73,9 +74,6 @@ div#searchResults {
   bottom: 5px
 }
 
-#rating,
 .rating {
-  position: ;
-  bottom: 0px;
-  right: 25px;
+   float: right;
 }
