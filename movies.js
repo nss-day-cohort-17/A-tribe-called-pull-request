@@ -108,37 +108,19 @@ function showActors () {
 }
 
 
-//REGISTER FUNCTION********************
-$('.register').click((e) => {
+// show register page on register tab click
+$('.register-tab').click((e) => {
    $('.register-page').removeClass('hidden')
    $('.login-page').addClass('hidden')
-   console.log('hi')
-   var email = $('input[type="email"]').val();
-   var password = $('input[type="password"]').val();
-   // firebase.auth().createUserWithEmailAndPassword(email, password)
-   // .catch(function(error) {
-   //    alert("Woops!")
-   // })
-   console.log(email)
 })
 
-//log in
-$('.login').click(function(e) {
+// show user login on login tab click
+$('.login').click((e) => {
    $('.login-page').removeClass('hidden')
    $('.register-page').addClass('hidden')
-   var email = $('input[type="email"]').val();
-   var password = $('input[type="password"]').val();
-  // firebase
-  //  .auth()
-  //  .signInWithEmailAndPassword(email, password)
-
-  //  e.preventDefault();
 })
 
-//sign out
-// $('.sign-out').click((e) => {
-//    firebase.auth().signOut()
-//    console.log("You are signed out");
+
 
 //Search Input Override
 $('#searchInput').focus(() => {

@@ -23,12 +23,12 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-               <li><a class="register" href="#">Register</a>
+               <li><a class="register-tab" href="#">Register</a>
                </li>
                <li>   </li>
-               <li><a class="login" href="#">Login</a></li>
+               <li><a class="login-tab" href="#">Login</a></li>
                <li>    </li>
-               <li><a class="my-movies" href="#">* My Movies *</a></li>
+               <li><a class="my-movies-tab" href="#">* My Movies *</a></li>
 
             </ul>
 
@@ -50,7 +50,7 @@
             <div class="form-group">
                <input type="password" class="form-control" placeholder="Password">
             </div>
-            <button class="btn btn-warning register">Register</button>
+            <button class="btn btn-warning register-btn" type="submit">Register</button>
       </form>
    </div>
    <!-- Login -->
@@ -62,7 +62,7 @@
             <div class="form-group">
                <input type="password" class="form-control" placeholder="Password">
             </div>
-            <button class="btn btn-warning register">Login</button>
+            <button class="btn btn-warning register" type="submit">Login</button>
       </form>
    </div>
    <div class="container row" id="searchResults">
@@ -70,6 +70,8 @@
    </div>
 
    <script src="bower_components/jquery/dist/jquery.js"></script>
+   <script src="/bower_components/firebase/firebase.js"></script>
+   <script src="auth.js"></script>
    <script src="movies.js"></script>
 </body>
 </html>
