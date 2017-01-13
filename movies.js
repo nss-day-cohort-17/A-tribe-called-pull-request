@@ -30,7 +30,6 @@ function promiseChain(url) {
       })
       .then(getIDs)
       .then(parseIDs)
-      // .then(addMovie)
       // .then(showActors)
       .catch(function() {
          alert('No search results found')
@@ -117,7 +116,7 @@ $('.register-tab').click((e) => {
 
 // show user login on login tab click
 $('.login-tab').click((e) => {
-   $('form')[0].reset()
+   $('form')[2].reset()
    $('#searchResults').html("")
    $('.login-page').removeClass('hidden')
    $('.register-page').addClass('hidden')
@@ -131,18 +130,8 @@ $('#searchInput').focus(() => {
    $('.register-page').addClass('hidden')
 })
 
-//  'PUT' a movie onto fireBase
-// function putMovie () {
-//    var xhr = new XMLHttpRequest ()
-//    xhr.addEventListener ('load', function() {})
-//    xhr.open ('POST', 'https://movie-madness-d8291.firebaseio.com/fu/.json' )
-//    xhr.send()
-// }
 
-// add to fireBase on add button click
-function addMovie () {
-   $('.glyphicon-plus-sign').click(putMovie(e))
-}
+
 
 
 //ADD-REMOVE BUTTONS*******************

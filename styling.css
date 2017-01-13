@@ -8,10 +8,10 @@
   border: .2em solid #9E9E9E;
 }
 
-
 .navbar-brand {
   color: black !important;
 }
+
 
 
 /* search input box */
@@ -37,6 +37,8 @@ div#searchResults {
   flex-flow: row wrap;
   justify-content: center;
 }
+
+
 
 /* movie card styling */
 .movieCard {
@@ -69,7 +71,6 @@ div#searchResults {
 .movieCard label {
   position: absolute;
   bottom: 5px
-
 }
 
 #rating,
