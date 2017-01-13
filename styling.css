@@ -1,27 +1,27 @@
 
 /* navbar styling */
 .navbar {
-   font-family: 'Bungee Shade', cursive;
-   font-size: 1.5em;
-   background-color: #71CF29;
-   box-shadow: 10px 5px 5px #7f8c8d;
-    border: .2em solid #9E9E9E;
+  font-family: 'Bungee Shade', cursive;
+  font-size: 1.5em;
+  background-color: #68a0f7;
+  box-shadow: 10px 5px 5px #7f8c8d;
+  border: .2em solid #9E9E9E;
 }
 
 
 .navbar-brand {
-    color: black !important;
+  color: black;
 }
 
 
 /* search input box */
 #searchInput {
-   font-family: 'Questrial', sans-serif;
-   font-size: 1em;
-   color: #757575;
-    padding: 1em;
-    border: 2px solid #7f8c8d;
-    align-items: center;
+  font-family: 'Questrial', sans-serif;
+  font-size: 1em;
+  color: #757575;
+  padding: 1em;
+  border: 2px solid #7f8c8d;
+  align-items: center;
 }
 
 /*email and password inputs*/
@@ -30,43 +30,46 @@ input {
 }
 
 body {
-    background-color: #B0BEC5;
-    /*https://i.ytimg.com/vi/svTVRDgI08Y/maxresdefault.jpg*/
+  background-color: #B0BEC5;
 }
 
 div#searchResults {
-    /*display: flex;*/
-    /*flex-direction: column;*/
-    /*flex-flow: row wrap;*/
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
 }
 
 /* movie card styling */
 .movieCard {
-   border: 1px black solid;
-   box-shadow: 1px 1px 1px 1px;
-   border-radius: 3px;
-   margin: 1%;
-   background-color: white;
-   max-height: 300em;
+  border: 1px black solid;
+  box-shadow: 1px 1px 1px 1px;
+  border-radius: 3px;
+  margin: 1%;
+  background-color: white;
+  max-height: 300em;
+  max-width: 200px;
+}
+
+.movieCard:last-child {
+  float: right;
 }
 
 .movieCard img {
-   padding: 0;
-   margin: 0;
+  padding: 0;
+  margin: 0;
 }
 
 .glyphicon {
-   float: left;
-   width: 30px;
+  float: left;
 }
 
 .rating {
-   max-width: 15px;
+  max-width: 15px;
 }
 
 .movieCard label {
-   position: absolute;
-   bottom: 5px
+  position: absolute;
+  bottom: 5px
 
 }
 

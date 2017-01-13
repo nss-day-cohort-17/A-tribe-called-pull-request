@@ -38,7 +38,10 @@ $('.login-page form').submit( (e) => {
          if (firebase.auth().currentUser !== null) {
             $('.login-tab').addClass('hidden');
             $('.logout-tab').removeClass('hidden')
+<<<<<<< HEAD
             // $('.my-movies').removeClass('hidden')
+=======
+>>>>>>> 9eac4a3bf8278d8717ca91194c36fc2e3fe14f82
          }
       })
       .catch((error) => {
