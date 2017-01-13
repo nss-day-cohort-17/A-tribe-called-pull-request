@@ -54,8 +54,8 @@ function parseIDs (ids) {
                      <h6>${movieInfo[i].Year}</h6>
                      <a><span class="glyphicon glyphicon-plus-sign add"></span></a>
                      <a><span class="glyphicon glyphicon-minus-sign remove"></span></a>
-                     <label for="#rating">Rating</label>
-                     <input class="rating" id="rating" type="text" maxlength="1"></input>
+                     Wish List <input class="wishList" type="checkbox">
+                     Rating<input class="rating" type="text" maxlength="1"></input>
                      <p class="hidden">${movieInfo[i].imdbID}</p>
                </div>`)
          })
@@ -63,7 +63,6 @@ function parseIDs (ids) {
             if(i === ids.length - 1) {
          addMovie();
          removeMovie();
-         console.log(movieInfo)
       }
       })
          .catch(() => {
@@ -143,14 +142,17 @@ $('#searchInput').focus(() => {
 //create add button for DI card, function will add movie to personal firebase object
 function addMovie() {
    $('.add').click(function(e) {
-   console.log(e.currentTarget)
+   var selectedMovie = e.currentTarget.parentElement.parentElement;
+   // $('.movieCard').each()
+         // return selectedMovie[i]
+   console.log(selectedMovie)
    })
 }
 
 //create remove button for DI card, function will remove movie from
 function removeMovie() {
    $('.remove').click(function(e) {
-      console.log(e.currentTarget)
+      // console.log(e.currentTarget)
    })
 }
 // personal firebase object
