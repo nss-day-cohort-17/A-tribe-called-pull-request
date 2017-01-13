@@ -30,7 +30,6 @@ function promiseChain(url) {
       })
       .then(getIDs)
       .then(parseIDs)
-      // .then(addMovie)
       // .then(showActors)
       .catch(function() {
          alert('No search results found')
@@ -59,6 +58,13 @@ function parseIDs (ids) {
                      <input class="rating" id="rating" type="text" maxlength="1"></input>
                </div>`)
          })
+         .then(function() {
+            if(i === ids.length - 1) {
+         addMovie();
+         removeMovie();
+         // console.log()
+      }
+      })
          .catch(() => {
             console.log('Could not get movie IDs')
          })
@@ -108,37 +114,21 @@ function showActors () {
 }
 
 
-//REGISTER FUNCTION********************
-$('.register').click((e) => {
+// show register page on register tab click
+$('.register-tab').click((e) => {
+   $('form')[1].reset()
    $('.register-page').removeClass('hidden')
    $('.login-page').addClass('hidden')
-   console.log('hi')
-   var email = $('input[type="email"]').val();
-   var password = $('input[type="password"]').val();
-   // firebase.auth().createUserWithEmailAndPassword(email, password)
-   // .catch(function(error) {
-   //    alert("Woops!")
-   // })
-   console.log(email)
 })
 
-//log in
-$('.login').click(function(e) {
+// show user login on login tab click
+$('.login-tab').click((e) => {
+   $('form')[0].reset()
    $('.login-page').removeClass('hidden')
    $('.register-page').addClass('hidden')
-   var email = $('input[type="email"]').val();
-   var password = $('input[type="password"]').val();
-  // firebase
-  //  .auth()
-  //  .signInWithEmailAndPassword(email, password)
-
-  //  e.preventDefault();
 })
 
-//sign out
-// $('.sign-out').click((e) => {
-//    firebase.auth().signOut()
-//    console.log("You are signed out");
+
 
 //Search Input Override
 $('#searchInput').focus(() => {
@@ -162,11 +152,18 @@ $('#searchInput').focus(() => {
 
 //ADD-REMOVE BUTTONS*******************
 //create add button for DI card, function will add movie to personal firebase object
-$('.add').click((e) => {
-   console.log("hi!!!")
-})
+function addMovie() {
+   $('.add').click(function(e) {
+   console.log(e.currentTarget)
+   })
+}
 
 //create remove button for DI card, function will remove movie from
+function removeMovie() {
+   $('.remove').click(function(e) {
+      console.log(e.currentTarget)
+   })
+}
 // personal firebase object
 
 //RATING INPUT*********************
