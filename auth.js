@@ -35,11 +35,17 @@ $('.login-page form').submit( (e) => {
       .signInWithEmailAndPassword(email, password)
       .then(() => $('form')[0].reset())
       .then( () => {
-      // if logged in, switch login-tab to logout-tab
+      // if logged in, switch 'login-tab' to 'logout-tab' and remove 'register-tab'
          if (firebase.auth().currentUser !== null) {
             $('.login-tab').addClass('hidden');
             $('.logout-tab').removeClass('hidden')
+            $('register-tab').addClass('hidden')
          }
+      })
+      .then(() => {
+         $('.welcome-page').html(`<h1 class="text-center">Welcome to Movie Madness, ${firebase.auth().currentUser.email}!`)
+         $('.login-page').addClass('hidden')
+         $('.welcome-page').removeClass('hidden')
       })
       .catch((error) => {
          alert(error.message)
@@ -51,8 +57,9 @@ $('.login-page form').submit( (e) => {
 //sign out
 $('.logout-tab').click((e) => {
    firebase.auth().signOut()
-   $('.logout-tab').addClass('hidden');
+   $('.logout-tab').addClass('hidden')
    $('.login-tab').removeClass('hidden')
+   $('.welcome-page').addClass('hidden')
    console.log("you've logged out");
 })
 
