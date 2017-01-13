@@ -17,9 +17,10 @@ $('.register-page form').submit( (e) => {
    firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(() => $('form')[1].reset())
+      .then(() => $('.register-page form')[1].reset())
       .catch((error) => {
          alert(error.message)
+         $('.register-page form')[1].reset()
       })
    e.preventDefault()
    console.log(email)
@@ -32,7 +33,7 @@ $('.login-page form').submit( (e) => {
    firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(() => $('form')[0].reset())
+      .then(() => $('.login-page form')[0].reset())
       .then( () => {
       // if logged in, switch login-tab to logout-tab
          if (firebase.auth().currentUser !== null) {
@@ -47,8 +48,18 @@ $('.login-page form').submit( (e) => {
 })
 
 
-
 //sign out
-// $('.sign-out').click((e) => {
-//    firebase.auth().signOut()
-//    console.log("You are signed out");
+$('.logout-tab').click((e) => {
+   firebase.auth().signOut()
+   $('.logout-tab').addClass('hidden');
+   $('.login-tab').removeClass('hidden')
+   console.log("you've logged out");
+})
+
+
+// no 'myMovies' if not logged in
+$('.my-movies-tab').click(() => {
+   if (firebase.auth().currentUser === null) {
+      alert('Please log in for the full Movie Madness experience')
+   }
+})
