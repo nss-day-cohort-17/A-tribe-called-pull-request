@@ -56,17 +56,19 @@ function parseIDs (ids) {
                      <a><span class="glyphicon glyphicon-minus-sign remove"></span></a>
                      <label for="#rating">Rating</label>
                      <input class="rating" id="rating" type="text" maxlength="1"></input>
+                     <p class="hidden">${movieInfo[i].imdbID}</p>
                </div>`)
          })
          .then(function() {
             if(i === ids.length - 1) {
          addMovie();
          removeMovie();
-         // console.log()
+         console.log(movieInfo)
       }
       })
          .catch(() => {
             console.log('Could not get movie IDs')
+      })
    }
    return movieInfo
 }
