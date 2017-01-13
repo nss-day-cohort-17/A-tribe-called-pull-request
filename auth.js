@@ -39,7 +39,7 @@ $('.login-page form').submit( (e) => {
          if (firebase.auth().currentUser !== null) {
             $('.login-tab').addClass('hidden');
             $('.logout-tab').removeClass('hidden')
-            $('register-tab').addClass('hidden')
+            $('.register-tab').addClass('hidden')
          }
       })
       .then(() => {
