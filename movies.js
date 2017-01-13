@@ -110,12 +110,14 @@ function showActors () {
 
 // show register page on register tab click
 $('.register-tab').click((e) => {
+   $('form')[1].reset()
    $('.register-page').removeClass('hidden')
    $('.login-page').addClass('hidden')
 })
 
 // show user login on login tab click
-$('.login').click((e) => {
+$('.login-tab').click((e) => {
+   $('form')[1].reset()
    $('.login-page').removeClass('hidden')
    $('.register-page').addClass('hidden')
 })

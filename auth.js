@@ -16,6 +16,7 @@ $('.register-page form').submit( (e) => {
    firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
+      .then(() => $('form')[1].reset())
       .catch((error) => {
          alert("*** Unable to register user ***")
       })
@@ -30,7 +31,7 @@ $('.login-page form').submit( (e) => {
    firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(() => $('form')[0].reset())
+      .then(() => $('form')[1].reset())
       .catch((error) => {
          alert("*** Unable to login ***")
       })
