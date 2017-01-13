@@ -11,8 +11,8 @@ firebase.initializeApp({
 // register new user on form submit
 $('.register-page form').submit( (e) => {
    console.log('hi')
-   var email = $('input[type="email"]').val();
-   var password = $('input[type="password"]').val();
+   var email = $('.register-email').val();
+   var password = $('.register-password').val();
 
    firebase
       .auth()
@@ -20,6 +20,7 @@ $('.register-page form').submit( (e) => {
       .then(() => $('form')[1].reset())
       .catch((error) => {
          alert(error.message)
+         $('.register-page form')[1].reset()
       })
    e.preventDefault()
    console.log(email)
@@ -27,19 +28,24 @@ $('.register-page form').submit( (e) => {
 
 // login user on form submit
 $('.login-page form').submit( (e) => {
-   var email = $('input[type="email"]').val();
-   var password = $('input[type="password"]').val();
+   var email = $('.login-email').val();
+   var password = $('.login-password').val();
    firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(() => $('form')[0].reset())
       .then( () => {
-      // if logged in, switch login-tab to logout-tab
+      // if logged in, switch 'login-tab' to 'logout-tab' and remove 'register-tab'
          if (firebase.auth().currentUser !== null) {
             $('.login-tab').addClass('hidden');
             $('.logout-tab').removeClass('hidden')
-            // $('.my-movies').removeClass('hidden')
+            $('register-tab').addClass('hidden')
          }
+      })
+      .then(() => {
+         $('.welcome-page').html(`<h1 class="text-center">Welcome to Movie Madness, ${firebase.auth().currentUser.email}!`)
+         $('.login-page').addClass('hidden')
+         $('.welcome-page').removeClass('hidden')
       })
       .catch((error) => {
          alert(error.message)
@@ -48,8 +54,19 @@ $('.login-page form').submit( (e) => {
 })
 
 
-
 //sign out
-// $('.sign-out').click((e) => {
-//    firebase.auth().signOut()
-//    console.log("You are signed out");
+$('.logout-tab').click((e) => {
+   firebase.auth().signOut()
+   $('.logout-tab').addClass('hidden')
+   $('.login-tab').removeClass('hidden')
+   $('.welcome-page').addClass('hidden')
+   console.log("you've logged out");
+})
+
+
+// no 'myMovies' if not logged in
+$('.my-movies-tab').click(() => {
+   if (firebase.auth().currentUser === null) {
+      alert('Please log in for the full Movie Madness experience')
+   }
+})
