@@ -24,12 +24,14 @@
     align-items: center;
 }
 
+/*email and password inputs*/
 input {
   max-width: 300px;
 }
 
 body {
     background-color: #B0BEC5;
+    /*https://i.ytimg.com/vi/svTVRDgI08Y/maxresdefault.jpg*/
 }
 
 div#searchResults {
@@ -55,6 +57,7 @@ div#searchResults {
 
 .glyphicon {
    float: left;
+   width: 30px;
 }
 
 .rating {
@@ -67,9 +70,6 @@ div#searchResults {
 
 }
 
-#rating,
 .rating {
-   position: ;
-   bottom: 0px;
-   right: 25px;
+   float: right;
 }
