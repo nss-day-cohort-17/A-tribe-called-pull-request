@@ -11,13 +11,13 @@ firebase.initializeApp({
 // register new user on form submit
 $('.register-page form').submit( (e) => {
    console.log('hi')
-   var email = $('input[type="email"]').val();
-   var password = $('input[type="password"]').val();
+   var email = $('.register-email').val();
+   var password = $('.register-password').val();
 
    firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(() => $('.register-page form')[1].reset())
+      .then(() => $('form')[1].reset())
       .catch((error) => {
          alert(error.message)
          $('.register-page form')[1].reset()
@@ -28,12 +28,12 @@ $('.register-page form').submit( (e) => {
 
 // login user on form submit
 $('.login-page form').submit( (e) => {
-   var email = $('input[type="email"]').val();
-   var password = $('input[type="password"]').val();
+   var email = $('.login-email').val();
+   var password = $('.login-password').val();
    firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(() => $('.login-page form')[0].reset())
+      .then(() => $('form')[0].reset())
       .then( () => {
       // if logged in, switch login-tab to logout-tab
          if (firebase.auth().currentUser !== null) {
