@@ -1,11 +1,12 @@
 // initialize fireBase
 firebase.initializeApp({
-    apiKey: "AIzaSyCT6Olqns1kus1qwC_v10PDqIXlRloBUBE",
-    authDomain: "c17-jquery-auth-4f244.firebaseapp.com",
-    databaseURL: "https://c17-jquery-auth-4f244.firebaseio.com",
-    storageBucket: "c17-jquery-auth-4f244.appspot.com",
-    messagingSenderId: "483267125880"
+    apiKey: "AIzaSyCxFTKharzT4eiWSxUTs76lnwuuHsafLaQ",
+    authDomain: "movie-madness-d8291.firebaseapp.com",
+    databaseURL: "https://movie-madness-d8291.firebaseio.com",
+    storageBucket: "movie-madness-d8291.appspot.com",
+    messagingSenderId: "769576227367"
   });
+
 
 // register new user on form submit
 $('.register-page form').submit( (e) => {
@@ -18,7 +19,7 @@ $('.register-page form').submit( (e) => {
       .createUserWithEmailAndPassword(email, password)
       .then(() => $('form')[1].reset())
       .catch((error) => {
-         alert("*** Unable to register user ***")
+         alert(error.message)
       })
    e.preventDefault()
    console.log(email)
@@ -31,12 +32,20 @@ $('.login-page form').submit( (e) => {
    firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
-      .then(() => $('form')[1].reset())
+      .then(() => $('form')[0].reset())
+      .then( () => {
+      // if logged in, switch login-tab to logout-tab
+         if (firebase.auth().currentUser !== null) {
+            $('.login-tab').addClass('hidden');
+            $('.logout-tab').removeClass('hidden')
+         }
+      })
       .catch((error) => {
-         alert("*** Unable to login ***")
+         alert(error.message)
       })
    e.preventDefault();
 })
+
 
 
 //sign out

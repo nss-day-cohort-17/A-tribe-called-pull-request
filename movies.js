@@ -117,7 +117,7 @@ $('.register-tab').click((e) => {
 
 // show user login on login tab click
 $('.login-tab').click((e) => {
-   $('form')[1].reset()
+   $('form')[0].reset()
    $('.login-page').removeClass('hidden')
    $('.register-page').addClass('hidden')
 })
