@@ -27,7 +27,6 @@ firebase.auth().onAuthStateChanged(() => {
 
 // register new user on form submit
 $('.register-page form').submit( (e) => {
-	 console.log('hi')
 	 var email = $('.register-email').val();
 	 var password = $('.register-password').val();
 
