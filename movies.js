@@ -79,7 +79,6 @@ function parseIDs (ids) {
 
 
 function getIDs (result) {
-   console.log(result.Error)
    // grab movie ID for each search result
    for (let j = 0; j < result.Search.length; j++) {
       imdbIDs.push(result.Search[j].imdbID)
@@ -171,10 +170,27 @@ function removeMovie() {
 function showMyMovies(url) {
    getData(url)
       .then(function(movie) {
-         console.log(JSON.parse(movie))
+         myMovies = []
+         myMovies.push(JSON.parse(movie))
+         console.log(myMovies)
       })
-
+      .then(() => {
+         for (let i = 0; i < myMovies.length; i++)
+            $('.my-movies-page').append(`
+               <div class="movieCard text-center">
+                     <p class="hidden">${i}</p>
+                     <h5>${myMovies[i].currentUID.movie.Title}</h5>
+                     <img class="img-responsive" src="${myMovies[i].Poster}" />
+                     <h6>${myMovies[i].Year}</h6>
+                     <a><span class="glyphicon glyphicon-plus-sign add"></span></a>
+                     <a><span class="glyphicon glyphicon-minus-sign remove"></span></a>
+                     Rating: <input class="rating" id="rating" type="text" maxlength="1"></input>
+                     <p class="hidden">${myMovies[i].imdbID}</p>
+                     <p class="hidden">${myMovies[i].Actors}</p>
+               </div>`)
+      })
 }
+
 
       // myMovies.push(movieInfo[thisIndex])
 
