@@ -56,7 +56,7 @@ function parseIDs (ids) {
                      <h5>${movieInfo[i].Title}</h5>
                      <img class="img-responsive" src="${movieInfo[i].Poster}" />
                      <h6>${movieInfo[i].Year}</h6>
-                     <a><span class="glyphicon glyphicon-plus-sign add"></span></a>
+                     <a><span class="glyphicon glyphicon-plus-sign add hidden"></span></a>
                      <a><span class="glyphicon glyphicon-minus-sign remove"></span></a>
                      Rating: <input class="rating" id="rating" type="text" maxlength="1"></input>
                      <p class="hidden">${movieInfo[i].imdbID}</p>

@@ -64,6 +64,7 @@ div#searchResults {
 
 .glyphicon {
   float: left;
+  padding: 5%;
 }
 
 .rating {
@@ -77,6 +78,7 @@ div#searchResults {
 
 .rating {
    float: right;
+   margin-right: 10%;
 }
 
 /* welcome message */
