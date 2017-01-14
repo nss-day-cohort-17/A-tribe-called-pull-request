@@ -81,6 +81,7 @@ $('.logout-tab').click((e) => {
 })
 
 
+// show *my movies* on tab click
 // no 'myMovies' if not logged in
 $('.my-movies-tab').click(() => {
 	$('form')[0].reset()

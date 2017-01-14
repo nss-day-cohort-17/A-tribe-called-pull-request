@@ -179,19 +179,22 @@ function showMyMovies(url) {
          console.log(myMovies)
       })
       .then(() => {
-         for (let i = 0; i < myMovies.length; i++)
+         //for (let i = 0; i < myMovies.length; i++)
+        Object.keys(myMovies).forEach(function(id, i) {
+           console.log(myMovies[id]);
             $('.my-movies-page').append(`
                <div class="movieCard text-center">
                      <p class="hidden">${i}</p>
-                     <h5>${myMovies[i].currentUID.movie.Title}</h5>
-                     <img class="img-responsive" src="${myMovies[i].Poster}" />
-                     <h6>${myMovies[i].Year}</h6>
-                     <a><span class="glyphicon glyphicon-plus-sign add hidden"></span></a>
+                     <h5>${myMovies[id].movie.Title}</h5>
+                     <img class="img-responsive" src="${myMovies[id].movie.Poster}" />
+                     <h6>${myMovies[id].movie.Year}</h6>
+                     <a><span class="glyphicon glyphicon-plus-sign add"></span></a>
                      <a><span class="glyphicon glyphicon-minus-sign remove"></span></a>
-                     Rating: <input class="rating" id="rating" type="text" maxlength="1"></input>
-                     <p class="hidden">${myMovies[i].imdbID}</p>
-                     <p class="hidden">${myMovies[i].Actors}</p>
+                     Rating: <input class="rating" id="rating" type="text" maxlength="1">
+                     <p class="hidden">${myMovies[id].movie.imdbID}</p>
+                     <p class="hidden">${myMovies[id].movie.Actors}</p>
                </div>`)
+         })
       })
 }
 
