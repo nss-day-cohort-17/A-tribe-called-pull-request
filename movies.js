@@ -179,9 +179,8 @@ function showMyMovies(url) {
          console.log(myMovies)
       })
       .then(() => {
-         //for (let i = 0; i < myMovies.length; i++)
         Object.keys(myMovies).forEach(function(id, i) {
-           console.log(myMovies[id]);
+           console.log(myMovies[id])
             $('.my-movies-page').append(`
                <div class="movieCard text-center">
                      <p class="hidden">${i}</p>
