@@ -5,7 +5,8 @@ let data
 let imdbIDs = []
 let movieInfo = []
 let myMovies = []
-let currentUser
+let currentUID
+
 
 
 // new promise factory to get array of movies
@@ -119,7 +120,7 @@ function showActors () {
 
 
 // show register page on register tab click
-$('.register-tab').click((e) => {
+$('.register-link').click((e) => {
    $('form')[1].reset()
    $('#searchResults').html("")
    $('.register-page').removeClass('hidden')
@@ -149,7 +150,7 @@ function addMovie() {
    $('.add').click(function(e) {
       let thisIndex = e.target.parentElement.parentElement.firstElementChild.innerHTML
       $.post(
-         `https://movie-madness-d8291.firebaseio.com/${currentUser}.json`,
+         `https://movie-madness-d8291.firebaseio.com/${currentUID}.json`,
          JSON.stringify({ movie : movieInfo[thisIndex] })
       )
       .then(res => console.log(res.name))
@@ -165,7 +166,7 @@ function removeMovie() {
 }
 
 // pull movie down from firebase to myMovies
-function myMovies() {
+function showMyMovies() {
 
 
 }

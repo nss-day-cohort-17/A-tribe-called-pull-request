@@ -11,6 +11,7 @@ firebase.initializeApp({
 firebase.auth().onAuthStateChanged(() => {
   if (firebase.auth().currentUser) {
     // logged in
+    currentUID = firebase.auth().currentUser.uid
     var email = firebase.auth().currentUser.email
       $('welcome-page').removeClass('hidden')
       $('.welcome-page').html(`<h1 class="text-center">Welcome to Movie Madness, ${firebase.auth().currentUser.email}!</h1>`)
@@ -33,10 +34,10 @@ $('.register-page form').submit( (e) => {
    firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(() => $('form')[1].reset())
+      // .then(() => $('form')[1].reset())
       .catch((error) => {
-         alert(error.message)
-         $('.register-page form')[1].reset()
+         alert(error)
+         // $('.register-page form')[1].reset()
       })
    e.preventDefault()
    console.log(email)
@@ -56,6 +57,7 @@ $('.login-page form').submit( (e) => {
             $('.login-tab').addClass('hidden');
             $('.logout-tab').removeClass('hidden')
             $('.register-tab').addClass('hidden')
+            currentUID = firebase.auth().currentUser.uid
          }
       })
       .then(() => {
@@ -66,7 +68,6 @@ $('.login-page form').submit( (e) => {
       .catch((error) => {
          alert(error.message)
       })
-    currentUser = firebase.auth().currentUser.uid
    e.preventDefault();
 })
 
