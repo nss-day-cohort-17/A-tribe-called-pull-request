@@ -4,6 +4,9 @@ let searchInput = $('#searchInput')
 let data
 let imdbIDs = []
 let movieInfo = []
+let myMovies = []
+let currentUID
+
 
 
 // new promise factory to get array of movies
@@ -53,7 +56,7 @@ function parseIDs (ids) {
                      <h5>${movieInfo[i].Title}</h5>
                      <img class="img-responsive" src="${movieInfo[i].Poster}" />
                      <h6>${movieInfo[i].Year}</h6>
-                     <a><span class="glyphicon glyphicon-plus-sign add"></span></a>
+                     <a><span class="glyphicon glyphicon-plus-sign add hidden"></span></a>
                      <a><span class="glyphicon glyphicon-minus-sign remove"></span></a>
                      Rating: <input class="rating" id="rating" type="text" maxlength="1"></input>
                      <p class="hidden">${movieInfo[i].imdbID}</p>
@@ -76,7 +79,6 @@ function parseIDs (ids) {
 
 
 function getIDs (result) {
-   console.log(result.Error)
    // grab movie ID for each search result
    for (let j = 0; j < result.Search.length; j++) {
       imdbIDs.push(result.Search[j].imdbID)
@@ -89,6 +91,8 @@ function resetSearch() {
    movieInfo = []
    imdbIDs = []
    $('#searchResults').html("")
+   $('#searchResults').removeClass('hidden')
+   $('.my-movies-page').addClass('hidden')
 }
 
 // add listener for input field on enter key
@@ -117,7 +121,7 @@ function showActors () {
 
 
 // show register page on register tab click
-$('.register-tab').click((e) => {
+$('.register-link').click((e) => {
    $('form')[1].reset()
    $('#searchResults').html("")
    $('.register-page').removeClass('hidden')
@@ -126,7 +130,7 @@ $('.register-tab').click((e) => {
 
 // show user login on login tab click
 $('.login-tab').click((e) => {
-   $('form')[2].reset()
+   $('form')[1].reset()
    $('#searchResults').html("")
    $('.login-page').removeClass('hidden')
    $('.register-page').addClass('hidden')
@@ -147,20 +151,48 @@ function addMovie() {
    $('.add').click(function(e) {
       let thisIndex = e.target.parentElement.parentElement.firstElementChild.innerHTML
       $.post(
-         `https://movie-madness-d8291.firebaseio.com/.json`,
+         `https://movie-madness-d8291.firebaseio.com/${currentUID}.json`,
          JSON.stringify({ movie : movieInfo[thisIndex] })
-      ).then(res => console.log(res.name))
+      )
+      .then(res => console.log(res.name))
    })
 }
 
 //create remove button for DI card, function will remove movie from
 function removeMovie() {
    $('.remove').click(function(e) {
+
       console.log(e)
    })
 }
 
+// pull movies down from firebase to myMovies
+function showMyMovies(url) {
+   getData(url)
+      .then(function(movie) {
+         myMovies = []
+         myMovies.push(JSON.parse(movie))
+         console.log(myMovies)
+      })
+      .then(() => {
+         for (let i = 0; i < myMovies.length; i++)
+            $('.my-movies-page').append(`
+               <div class="movieCard text-center">
+                     <p class="hidden">${i}</p>
+                     <h5>${myMovies[i].currentUID.movie.Title}</h5>
+                     <img class="img-responsive" src="${myMovies[i].Poster}" />
+                     <h6>${myMovies[i].Year}</h6>
+                     <a><span class="glyphicon glyphicon-plus-sign add"></span></a>
+                     <a><span class="glyphicon glyphicon-minus-sign remove"></span></a>
+                     Rating: <input class="rating" id="rating" type="text" maxlength="1"></input>
+                     <p class="hidden">${myMovies[i].imdbID}</p>
+                     <p class="hidden">${myMovies[i].Actors}</p>
+               </div>`)
+      })
+}
 
+
+      // myMovies.push(movieInfo[thisIndex])
 
 
 

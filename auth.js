@@ -7,6 +7,23 @@ firebase.initializeApp({
     messagingSenderId: "769576227367"
   });
 
+// different view depending on current user
+firebase.auth().onAuthStateChanged(() => {
+  if (firebase.auth().currentUser) {
+    // logged in
+    currentUID = firebase.auth().currentUser.uid
+    var email = firebase.auth().currentUser.email
+      $('welcome-page').removeClass('hidden')
+      $('.welcome-page').html(`<h1 class="text-center">Welcome to Movie Madness, ${firebase.auth().currentUser.email}!</h1>`)
+      $('.login-tab').addClass('hidden')
+      $('.logout-tab').removeClass('hidden')
+  } else {
+    // logged out
+    $('.login-page').removeClass('hidden')
+    $('.main-page').addClass('hidden')
+  }
+})
+
 
 // register new user on form submit
 $('.register-page form').submit( (e) => {
@@ -17,10 +34,10 @@ $('.register-page form').submit( (e) => {
    firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(() => $('form')[1].reset())
+      // .then(() => $('form')[1].reset())
       .catch((error) => {
-         alert(error.message)
-         $('.register-page form')[1].reset()
+         alert(error)
+         // $('.register-page form')[1].reset()
       })
    e.preventDefault()
    console.log(email)
@@ -40,10 +57,11 @@ $('.login-page form').submit( (e) => {
             $('.login-tab').addClass('hidden');
             $('.logout-tab').removeClass('hidden')
             $('.register-tab').addClass('hidden')
+            currentUID = firebase.auth().currentUser.uid
          }
       })
       .then(() => {
-         $('.welcome-page').html(`<h1 class="text-center">Welcome to Movie Madness, ${firebase.auth().currentUser.email}!`)
+         $('.welcome-page').html(`<h1 class="text-center">Welcome to Movie Madness, ${firebase.auth().currentUser.email}!</h1>`)
          $('.login-page').addClass('hidden')
          $('.welcome-page').removeClass('hidden')
       })
@@ -68,5 +86,12 @@ $('.logout-tab').click((e) => {
 $('.my-movies-tab').click(() => {
    if (firebase.auth().currentUser === null) {
       alert('Please log in for the full Movie Madness experience')
-   }
+   } else {
+    $('.login-page').addClass('hidden')
+    $('.welcome-page').addClass('hidden')
+    $('.register-page').addClass('hidden')
+    $('#searchResults').addClass('hidden')
+    $('.my-movies-page').removeClass('hidden')
+    showMyMovies(`https://movie-madness-d8291.firebaseio.com/${currentUID}.json`)
+  }
 })

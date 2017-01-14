@@ -10,6 +10,7 @@
 
 .navbar-brand {
   color: black;
+  font-size: 1.3em;
 }
 
 
@@ -63,6 +64,7 @@ div#searchResults {
 
 .glyphicon {
   float: left;
+  padding: 5%;
 }
 
 .rating {
@@ -76,4 +78,10 @@ div#searchResults {
 
 .rating {
    float: right;
+   margin-right: 10%;
+}
+
+/* welcome message */
+.welcome-page h1 {
+  margin-top: 10%;
 }
