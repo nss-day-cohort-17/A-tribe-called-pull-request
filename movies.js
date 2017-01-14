@@ -92,6 +92,8 @@ function resetSearch() {
    movieInfo = []
    imdbIDs = []
    $('#searchResults').html("")
+   $('#searchResults').removeClass('hidden')
+   $('.my-movies-page').addClass('hidden')
 }
 
 // add listener for input field on enter key
@@ -165,9 +167,12 @@ function removeMovie() {
    })
 }
 
-// pull movie down from firebase to myMovies
-function showMyMovies() {
-
+// pull movies down from firebase to myMovies
+function showMyMovies(url) {
+   getData(url)
+      .then(function(movie) {
+         console.log(JSON.parse(movie))
+      })
 
 }
 
