@@ -56,9 +56,9 @@ function parseIDs (ids) {
                      <h5>${movieInfo[i].Title}</h5>
                      <img class="img-responsive" src="${movieInfo[i].Poster}" />
                      <h6>${movieInfo[i].Year}</h6>
-                     <a><span class="glyphicon glyphicon-plus-sign add hidden"></span></a>
-                     <a><span class="glyphicon glyphicon-minus-sign remove"></span></a>
-                     Rating: <input class="rating" id="rating" type="text" maxlength="1"></input>
+                     <a><span class="glyphicon glyphicon-plus-sign add"></span></a>
+                     <a><span class="glyphicon glyphicon-minus-sign remove hidden"></span></a>
+                     My Rating: <input class="rating" id="rating" type="text" maxlength="1"></input>
                      <p class="hidden">${movieInfo[i].imdbID}</p>
                      <p class="hidden">${movieInfo[i].Actors}</p>
                </div>`)
@@ -149,12 +149,16 @@ $('#searchInput').focus(() => {
 //create add button for DI card, function will add movie to personal firebase object
 function addMovie() {
    $('.add').click(function(e) {
-      let thisIndex = e.target.parentElement.parentElement.firstElementChild.innerHTML
-      $.post(
-         `https://movie-madness-d8291.firebaseio.com/${currentUID}.json`,
-         JSON.stringify({ movie : movieInfo[thisIndex] })
-      )
-      .then(res => console.log(res.name))
+      if (firebase.auth().currentUser === null) {
+         alert("You must be logged in to add flicks to *My Movies*")
+      } else {
+         let thisIndex = e.target.parentElement.parentElement.firstElementChild.innerHTML
+         $.post(
+            `https://movie-madness-d8291.firebaseio.com/${currentUID}.json`,
+            JSON.stringify({ movie : movieInfo[thisIndex] })
+         )
+         .then(res => console.log(res.name))
+      }
    })
 }
 
@@ -175,19 +179,21 @@ function showMyMovies(url) {
          console.log(myMovies)
       })
       .then(() => {
-         for (let i = 0; i < myMovies.length; i++)
+        Object.keys(myMovies).forEach(function(id, i) {
+           console.log(myMovies[id])
             $('.my-movies-page').append(`
                <div class="movieCard text-center">
                      <p class="hidden">${i}</p>
-                     <h5>${myMovies[i].currentUID.movie.Title}</h5>
-                     <img class="img-responsive" src="${myMovies[i].Poster}" />
-                     <h6>${myMovies[i].Year}</h6>
+                     <h5>${myMovies[id].movie.Title}</h5>
+                     <img class="img-responsive" src="${myMovies[id].movie.Poster}" />
+                     <h6>${myMovies[id].movie.Year}</h6>
                      <a><span class="glyphicon glyphicon-plus-sign add"></span></a>
                      <a><span class="glyphicon glyphicon-minus-sign remove"></span></a>
-                     Rating: <input class="rating" id="rating" type="text" maxlength="1"></input>
-                     <p class="hidden">${myMovies[i].imdbID}</p>
-                     <p class="hidden">${myMovies[i].Actors}</p>
+                     Rating: <input class="rating" id="rating" type="text" maxlength="1">
+                     <p class="hidden">${myMovies[id].movie.imdbID}</p>
+                     <p class="hidden">${myMovies[id].movie.Actors}</p>
                </div>`)
+         })
       })
 }
 
