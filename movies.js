@@ -4,6 +4,8 @@ let searchInput = $('#searchInput')
 let data
 let imdbIDs = []
 let movieInfo = []
+let myMovies = []
+let currentUser
 
 
 // new promise factory to get array of movies
@@ -126,7 +128,7 @@ $('.register-tab').click((e) => {
 
 // show user login on login tab click
 $('.login-tab').click((e) => {
-   $('form')[2].reset()
+   $('form')[1].reset()
    $('#searchResults').html("")
    $('.login-page').removeClass('hidden')
    $('.register-page').addClass('hidden')
@@ -147,20 +149,28 @@ function addMovie() {
    $('.add').click(function(e) {
       let thisIndex = e.target.parentElement.parentElement.firstElementChild.innerHTML
       $.post(
-         `https://movie-madness-d8291.firebaseio.com/.json`,
+         `https://movie-madness-d8291.firebaseio.com/${currentUser}.json`,
          JSON.stringify({ movie : movieInfo[thisIndex] })
-      ).then(res => console.log(res.name))
+      )
+      .then(res => console.log(res.name))
    })
 }
 
 //create remove button for DI card, function will remove movie from
 function removeMovie() {
    $('.remove').click(function(e) {
+
       console.log(e)
    })
 }
 
+// pull movie down from firebase to myMovies
+function myMovies() {
 
+
+}
+
+      // myMovies.push(movieInfo[thisIndex])
 
 
 
