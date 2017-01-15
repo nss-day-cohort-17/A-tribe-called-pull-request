@@ -57,8 +57,7 @@ function parseIDs (ids) {
                      <img class="img-responsive" src="${movieInfo[i].Poster}" />
                      <h6>${movieInfo[i].Year}</h6>
                      <a><span class="glyphicon glyphicon-plus-sign add"></span></a>
-                     <a><span class="glyphicon glyphicon-minus-sign remove hidden"></span></a>
-                     My Rating: <input class="rating" id="rating" type="text" maxlength="1"></input>
+                     <p text-left>Add to * My Movies *</p>
                      <p class="hidden">${movieInfo[i].imdbID}</p>
                      <p class="hidden">${movieInfo[i].Actors}</p>
                </div>`)
@@ -66,7 +65,6 @@ function parseIDs (ids) {
          .then(function() {
             if(i === ids.length - 1) {
          addMovie();
-         removeMovie();
          console.log(movieInfo)
       }
       })
@@ -152,32 +150,31 @@ function addMovie() {
       if (firebase.auth().currentUser === null) {
          alert("You must be logged in to add flicks to *My Movies*")
       } else {
-         let thisIndex = e.target.parentElement.parentElement.firstElementChild.innerHTML
-         $.post(
-            `https://movie-madness-d8291.firebaseio.com/${currentUID}.json`,
-            JSON.stringify({ movie : movieInfo[thisIndex] })
-         )
-         .then(res => console.log(res.name))
+      let thisIndex = e.target.parentElement.parentElement.firstElementChild.innerHTML
+      $.post(
+         `https://movie-madness-d8291.firebaseio.com/${currentUID}.json`,
+         JSON.stringify({ movie : movieInfo[thisIndex] })
+      )
+      .then(res => console.log(res.name))
       }
    })
 }
 
 //create remove button for DI card, function will remove movie from
 function removeMovie() {
-   $('.remove').click(function(e) {
 
-      console.log(e)
-   })
 }
+
+$('.glyphicon-minus-sign').click(function(e) {
+   console.log('hi')
+})
+
 
 // pull movies down from firebase to myMovies
 function showMyMovies(url) {
    getData(url)
       .then(function(movie) {
-         myMovies;
-        //console.log(movie);
-         //myMovies.push(JSON.parse(movie));
-        myMovies = JSON.parse(movie);
+         myMovies = JSON.parse(movie);
          console.log(myMovies)
       })
       .then(() => {
@@ -189,31 +186,27 @@ function showMyMovies(url) {
                   <h5>${myMovies[id].movie.Title}</h5>
                   <img class="img-responsive" src="${myMovies[id].movie.Poster}" />
                   <h6>${myMovies[id].movie.Year}</h6>
-                  <a><span class="glyphicon glyphicon-plus-sign add hidden"></span></a>
                   <a><span class="glyphicon glyphicon-minus-sign remove"></span></a>
-                  My Rating: <form class="rating"><input class="rating" pattern="[1-5]{1}" id="rating" type="text" maxlength="1" /></form>
-                     <p class="hidden">${myMovies[id].movie.imdbID}</p>
-                     <p class="hidden">${myMovies[id].movie.Actors}</p>
+                  My Rating: <form id="myRating"><input class="rating" pattern="[1-5]{1}" id="rating" type="text" maxlength="1" ></form>
+                  <p class="hidden">${myMovies[id].movie.imdbID}</p>
+                  <p class="hidden">${myMovies[id].movie.Actors}</p>
                </div>`)
+         })
       })
-   })
+
 }
-
-
-      // myMovies.push(movieInfo[thisIndex])
-
-
-
-// rating submission on submit
-$("form.rating").submit(function(e) {
-    if ($('input.rating').val()) {
-      let myRating = $('input.rating').val()
-      rateMovie(myRating)
-    }
-    e.preventDefault()
-})
 
 // function to add rating to movie card
-function rateMovie (x) {
-   console.log(x)
+function rateMovie () {
+
 }
+
+// rating submission on .submit
+   $('#myRating').submit(function(e) {
+      console.log('hi')
+      //  if ($('#rating').val()) {
+      //    let myRating = $('#rating').val()
+      //    rateMovie(myRating)
+      //  }
+   e.preventDefault()
+   })

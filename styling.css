@@ -77,9 +77,10 @@ div#searchResults {
   bottom: 5px
 }
 
-.rating {
+input.rating {
    float: right;
    margin-right: 10%;
+   margin-bottom: 10%;
 }
 
 /* welcome message */

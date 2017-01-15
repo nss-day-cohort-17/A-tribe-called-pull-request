@@ -77,6 +77,8 @@ $('.logout-tab').click((e) => {
 	 $('.logout-tab').addClass('hidden')
 	 $('.login-tab').removeClass('hidden')
 	 $('.welcome-page').addClass('hidden')
+	 $('.my-movies-page').addClass('hidden')
+	 $('#searchResults').addClass('hidden')
 	 console.log("you've logged out");
 })
 
@@ -85,6 +87,9 @@ $('.logout-tab').click((e) => {
 // no 'myMovies' if not logged in
 $('.my-movies-tab').click(() => {
 	$('form')[0].reset()
+	// clear myMovies so it doesn't double up
+	myMovies = []
+	$('.my-movies-page').html('')
 	if (firebase.auth().currentUser === null) {
 		alert('Please log in for the full Movie Madness experience')
 	} else {
