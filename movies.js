@@ -143,8 +143,7 @@ $('#searchInput').focus(() => {
 })
 
 
-//ADD-REMOVE BUTTONS*******************
-//create add button for DI card, function will add movie to personal firebase object
+// function to add movie to personal firebase object
 function addMovie() {
    $('.add').click(function(e) {
       if (firebase.auth().currentUser === null) {
@@ -157,20 +156,6 @@ function addMovie() {
       )
       .then(res => console.log(res.name + " added to my movies"))
       }
-   })
-}
-
-//create remove button for DI card, function will remove movie from
-function removeMovie() {
-   $('.glyphicon-minus-sign').click(function(e) {
-      let thisKey = e.target.parentElement.parentElement.firstElementChild.innerHTML
-      // console.log(`https://movie-madness-d8291.firebaseio.com/${currentUID}/${thisKey}.json`)
-      var xhr = new XMLHttpRequest ()
-      xhr.addEventListener ('load', () => {})
-      xhr.open ('DELETE', `https://movie-madness-d8291.firebaseio.com/${currentUID}/${thisKey}.json` )
-      xhr.send()
-      console.log(`${thisKey} removed from my movies`)
-      $('e.target.parentElement.parentElement').addClass('hidden')
    })
 }
 
@@ -200,6 +185,7 @@ function showMyMovies(url) {
                </div>`)
          })
       })
+   // once myMovies are loaded, enable the delete and the rate functions
       .then(function() {
          removeMovie()
          rateMovie()
@@ -207,15 +193,31 @@ function showMyMovies(url) {
 
 }
 
+
+//create remove button for DI card, function will remove movie from
+function removeMovie() {
+   $('.glyphicon-minus-sign').click(function(e) {
+      let thisKey = e.target.parentElement.parentElement.firstElementChild.innerHTML
+      // console.log(`https://movie-madness-d8291.firebaseio.com/${currentUID}/${thisKey}.json`)
+      var xhr = new XMLHttpRequest ()
+      xhr.addEventListener ('load', () => {})
+      xhr.open ('DELETE', `https://movie-madness-d8291.firebaseio.com/${currentUID}/${thisKey}.json` )
+      xhr.send()
+      console.log(`${thisKey} removed from my movies`)
+      $('e.target.parentElement.parentElement').addClass('hidden')
+   })
+}
+
+
 // function to add rating to movie card
 function rateMovie () {
 // rating submission on .submit
    $('#myRating').submit(function(e) {
       console.log('hi')
-      //  if ($('#rating').val()) {
-      //    let myRating = $('#rating').val()
-      //    rateMovie(myRating)
-      //  }
-   e.preventDefault()
+       // if ($('#rating').val()) {
+       //   let myRating = $('#rating').val()
+       //   rateMovie(myRating)
+       // }
+      e.preventDefault()
    })
 }
