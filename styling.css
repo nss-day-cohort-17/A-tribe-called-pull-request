@@ -8,8 +8,8 @@
   border: .2em solid #9E9E9E;
 }
 
-.navbar-brand {
-  color: black;
+di5.navbar-brand {
+  color: black !important;
 }
 
 
@@ -44,8 +44,8 @@ div#searchResults {
 /* movie card styling */
 .movieCard {
   border: 1px black solid;
-  box-shadow: 1px 1px 1px 1px;
-  border-radius: 3px;
+  box-shadow: 5px 5px 5px 5px;
+  border-radius: .5em;
   margin: 1%;
   background-color: white;
   max-height: 300em;
@@ -66,14 +66,19 @@ div#searchResults {
 }
 
 .rating {
-  max-width: 15px;
+  max-width: 1em;
 }
 
 .movieCard label {
   position: absolute;
-  bottom: 5px
+  bottom: 5px;
 }
 
 .rating {
    float: right;
+}
+
+button {
+  background-color: #1976D2 !important;
+  border: 1px #1976D2 !important;
 }
