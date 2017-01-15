@@ -33,10 +33,14 @@ $('.register-page form').submit( (e) => {
 	 firebase
 			.auth()
 			.createUserWithEmailAndPassword(email, password)
-			.then(() => $('form')[0].reset())
+			.then(() => {
+				$('.register-email').val('')
+				$('.register-password').val('')
+			})
 			.catch((error) => {
+				 $('.register-email').val('')
+				 $('.register-password').val('')
 				 alert(error)
-				 $('.register-page form')[0].reset()
 			})
 	 e.preventDefault()
 	 console.log(email)
@@ -77,6 +81,8 @@ $('.logout-tab').click((e) => {
 	 $('.logout-tab').addClass('hidden')
 	 $('.login-tab').removeClass('hidden')
 	 $('.welcome-page').addClass('hidden')
+	 $('.my-movies-page').addClass('hidden')
+	 $('#searchResults').addClass('hidden')
 	 console.log("you've logged out");
 })
 
@@ -85,6 +91,9 @@ $('.logout-tab').click((e) => {
 // no 'myMovies' if not logged in
 $('.my-movies-tab').click(() => {
 	$('form')[0].reset()
+	// clear myMovies so it doesn't double up
+	myMovies = []
+	$('.my-movies-page').html('')
 	if (firebase.auth().currentUser === null) {
 		alert('Please log in for the full Movie Madness experience')
 	} else {
