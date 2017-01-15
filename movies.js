@@ -163,15 +163,21 @@ function addMovie() {
 //create remove button for DI card, function will remove movie from
 function removeMovie() {
    $('.glyphicon-minus-sign').click(function(e) {
-      console.log('hi')
+      let thisKey = e.target.parentElement.parentElement.firstElementChild.innerHTML
+      // console.log(`https://movie-madness-d8291.firebaseio.com/${currentUID}/${thisKey}.json`)
+      var xhr = new XMLHttpRequest ()
+      xhr.addEventListener ('load', () => {})
+      xhr.open ('DELETE', `https://movie-madness-d8291.firebaseio.com/${currentUID}/${thisKey}.json` )
+      xhr.send()
+      // showMyMovies(`https://movie-madness-d8291.firebaseio.com/${currentUID}.json`)
    })
-
 }
 
 
 
 // pull movies down from firebase to myMovies
 function showMyMovies(url) {
+   myMovies = []
    getData(url)
       .then(function(movie) {
          myMovies = JSON.parse(movie);
@@ -182,7 +188,7 @@ function showMyMovies(url) {
             console.log(myMovies[id]);
             $('.my-movies-page').append(`
                <div class="movieCard text-center">
-                  <p class="hidden">${i}</p>
+                  <p class="hidden">${id}</p>
                   <h4>${myMovies[id].movie.Title}</h4>
                   <h5>${myMovies[id].movie.Year}</h5>
                   <img class="img-responsive" src="${myMovies[id].movie.Poster}" />
@@ -202,9 +208,6 @@ function showMyMovies(url) {
 
 // function to add rating to movie card
 function rateMovie () {
-
-}
-
 // rating submission on .submit
    $('#myRating').submit(function(e) {
       console.log('hi')
@@ -214,3 +217,4 @@ function rateMovie () {
       //  }
    e.preventDefault()
    })
+}
