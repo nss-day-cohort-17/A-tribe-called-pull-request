@@ -155,7 +155,7 @@ function addMovie() {
          `https://movie-madness-d8291.firebaseio.com/${currentUID}.json`,
          JSON.stringify({ movie : movieInfo[thisIndex] })
       )
-      .then(res => console.log(res.name))
+      .then(res => console.log(res.name + " added to my movies"))
       }
    })
 }
@@ -169,7 +169,8 @@ function removeMovie() {
       xhr.addEventListener ('load', () => {})
       xhr.open ('DELETE', `https://movie-madness-d8291.firebaseio.com/${currentUID}/${thisKey}.json` )
       xhr.send()
-      // showMyMovies(`https://movie-madness-d8291.firebaseio.com/${currentUID}.json`)
+      console.log(`${thisKey} removed from my movies`)
+      $('e.target.parentElement.parentElement').addClass('hidden')
    })
 }
 
