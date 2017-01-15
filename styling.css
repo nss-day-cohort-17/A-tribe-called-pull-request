@@ -8,16 +8,9 @@
   border: .2em solid #9E9E9E;
 }
 
-<<<<<<< HEAD
-di5.navbar-brand {
+a.navbar-brand {
   color: black !important;
-=======
-.navbar-brand {
-  color: black;
-  font-size: 1.3em;
->>>>>>> master
 }
-
 
 
 /* search input box */
