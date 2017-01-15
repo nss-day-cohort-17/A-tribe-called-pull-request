@@ -33,10 +33,14 @@ $('.register-page form').submit( (e) => {
 	 firebase
 			.auth()
 			.createUserWithEmailAndPassword(email, password)
-			.then(() => $('form')[0].reset())
+			.then(() => {
+				$('.register-email').val('')
+				$('.register-password').val('')
+			})
 			.catch((error) => {
+				 $('.register-email').val('')
+				 $('.register-password').val('')
 				 alert(error)
-				 $('.register-page form')[0].reset()
 			})
 	 e.preventDefault()
 	 console.log(email)

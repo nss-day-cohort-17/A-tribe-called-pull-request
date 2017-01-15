@@ -53,11 +53,11 @@ function parseIDs (ids) {
             $('#searchResults').append(`
                <div class="movieCard text-center">
                      <p class="hidden">${i}</p>
-                     <h5>${movieInfo[i].Title}</h5>
+                     <h4>${movieInfo[i].Title}</h4>
+                     <h5>${movieInfo[i].Year}</h5>
                      <img class="img-responsive" src="${movieInfo[i].Poster}" />
-                     <h6>${movieInfo[i].Year}</h6>
                      <a><span class="glyphicon glyphicon-plus-sign add"></span></a>
-                     <p text-left>Add to * My Movies *</p>
+                     <p class="text-left">Add to * My Movies *</p>
                      <p class="hidden">${movieInfo[i].imdbID}</p>
                      <p class="hidden">${movieInfo[i].Actors}</p>
                </div>`)
@@ -162,12 +162,12 @@ function addMovie() {
 
 //create remove button for DI card, function will remove movie from
 function removeMovie() {
+   $('.glyphicon-minus-sign').click(function(e) {
+      console.log('hi')
+   })
 
 }
 
-$('.glyphicon-minus-sign').click(function(e) {
-   console.log('hi')
-})
 
 
 // pull movies down from firebase to myMovies
@@ -183,15 +183,19 @@ function showMyMovies(url) {
             $('.my-movies-page').append(`
                <div class="movieCard text-center">
                   <p class="hidden">${i}</p>
-                  <h5>${myMovies[id].movie.Title}</h5>
+                  <h4>${myMovies[id].movie.Title}</h4>
+                  <h5>${myMovies[id].movie.Year}</h5>
                   <img class="img-responsive" src="${myMovies[id].movie.Poster}" />
-                  <h6>${myMovies[id].movie.Year}</h6>
-                  <a><span class="glyphicon glyphicon-minus-sign remove"></span></a>
+                  <a><span class="glyphicon glyphicon-minus-sign remove">Remove from My Movies</span></a>
                   My Rating: <form id="myRating"><input class="rating" pattern="[1-5]{1}" id="rating" type="text" maxlength="1" ></form>
                   <p class="hidden">${myMovies[id].movie.imdbID}</p>
                   <p class="hidden">${myMovies[id].movie.Actors}</p>
                </div>`)
          })
+      })
+      .then(function() {
+         removeMovie()
+         rateMovie()
       })
 
 }
