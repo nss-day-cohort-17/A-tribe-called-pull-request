@@ -174,27 +174,29 @@ function removeMovie() {
 function showMyMovies(url) {
    getData(url)
       .then(function(movie) {
-         myMovies = []
-         myMovies.push(JSON.parse(movie))
+         myMovies;
+        //console.log(movie);
+         //myMovies.push(JSON.parse(movie));
+        myMovies = JSON.parse(movie);
          console.log(myMovies)
       })
       .then(() => {
-        Object.keys(myMovies).forEach(function(id, i) {
-           console.log(myMovies[id])
+         Object.keys(myMovies).forEach(function(id, i) {
+            console.log(myMovies[id]);
             $('.my-movies-page').append(`
                <div class="movieCard text-center">
-                     <p class="hidden">${i}</p>
-                     <h5>${myMovies[id].movie.Title}</h5>
-                     <img class="img-responsive" src="${myMovies[id].movie.Poster}" />
-                     <h6>${myMovies[id].movie.Year}</h6>
-                     <a><span class="glyphicon glyphicon-plus-sign add"></span></a>
-                     <a><span class="glyphicon glyphicon-minus-sign remove"></span></a>
-                     Rating: <input class="rating" id="rating" type="text" maxlength="1">
+                  <p class="hidden">${i}</p>
+                  <h5>${myMovies[id].movie.Title}</h5>
+                  <img class="img-responsive" src="${myMovies[id].movie.Poster}" />
+                  <h6>${myMovies[id].movie.Year}</h6>
+                  <a><span class="glyphicon glyphicon-plus-sign add hidden"></span></a>
+                  <a><span class="glyphicon glyphicon-minus-sign remove"></span></a>
+                  My Rating: <form class="rating"><input class="rating" pattern="[1-5]{1}" id="rating" type="text" maxlength="1" /></form>
                      <p class="hidden">${myMovies[id].movie.imdbID}</p>
                      <p class="hidden">${myMovies[id].movie.Actors}</p>
                </div>`)
-         })
       })
+   })
 }
 
 
@@ -202,13 +204,16 @@ function showMyMovies(url) {
 
 
 
-// personal firebase object
+// rating submission on submit
+$("form.rating").submit(function(e) {
+    if ($('input.rating').val()) {
+      let myRating = $('input.rating').val()
+      rateMovie(myRating)
+    }
+    e.preventDefault()
+})
 
-//RATING INPUT*********************
-// function movieRate() {
-//    $(".rating").keyup(function(e) {
-//       var rating = $(e.currentTarget).val()
-//       // return rating
-//       console.log(rating)
-//    } )
-// }
+// function to add rating to movie card
+function rateMovie (x) {
+   console.log(x)
+}
