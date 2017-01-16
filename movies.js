@@ -179,7 +179,7 @@ function showMyMovies(url) {
                   <h5>${myMovies[id].movie.Year}</h5>
                   <img class="img-responsive" src="${myMovies[id].movie.Poster}" />
                   <a><span class="glyphicon glyphicon-minus-sign remove">Remove from My Movies</span></a>
-                  My Rating: <form id="myRating"><input class="rating" pattern="[1-5]{1}" id="rating" type="text" maxlength="1" ></form>
+                  My Rating: <form class="myRating" id="${id}"><input class="rating" pattern="[1-5]{1}" type="text" maxlength="1" ></form>
                   <p class="hidden">${myMovies[id].movie.imdbID}</p>
                   <p class="hidden">${myMovies[id].movie.Actors}</p>
                </div>`)
@@ -212,12 +212,13 @@ function removeMovie() {
 // function to add rating to movie card
 function rateMovie () {
 // rating submission on .submit
-   $('#myRating').submit(function(e) {
-      console.log('hi')
-       // if ($('#rating').val()) {
-       //   let myRating = $('#rating').val()
-       //   rateMovie(myRating)
-       // }
+   $('.myRating').submit(function(e) {
+      console.log(this.id)
+       if ($('.rating').val()) {
+         let myRating = $('.rating').val()
+         console.log(myRating)
+         // $('this:parent').addClass('hidden')
+       }
       e.preventDefault()
    })
 }
