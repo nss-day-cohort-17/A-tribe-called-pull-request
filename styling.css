@@ -10,6 +10,7 @@
 
 .navbar-brand {
   color: black;
+  font-size: 1.3em;
 }
 
 
@@ -33,6 +34,7 @@ body {
   background-color: #B0BEC5;
 }
 
+/* search results page */
 div#searchResults {
   display: flex;
   flex-flow: row wrap;
@@ -63,6 +65,7 @@ div#searchResults {
 
 .glyphicon {
   float: left;
+  padding: 5%;
 }
 
 .rating {
@@ -74,6 +77,20 @@ div#searchResults {
   bottom: 5px
 }
 
-.rating {
+input.rating {
    float: right;
+   margin-right: 10%;
+   margin-bottom: 10%;
+}
+
+/* welcome message */
+.welcome-page h1 {
+  margin-top: 10%;
+}
+
+/* my movies page */
+div.my-movies-page {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
 }
