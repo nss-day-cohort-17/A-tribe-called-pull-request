@@ -59,12 +59,17 @@ function parseIDs (ids) {
                      <a><span class="glyphicon glyphicon-plus-sign add"></span></a>
                      <p class="text-left">Add to * My Movies *</p>
                      <p class="hidden">${movieInfo[i].imdbID}</p>
-                     <p class="hidden">${movieInfo[i].Actors}</p>
+                     <p class="actors hidden">${movieInfo[i].Actors}</p><br>
+                     <p class="plot hidden">${movieInfo[i].Plot}</p>
                </div>`)
          })
          .then(function() {
             if(i === ids.length - 1) {
+
+         addMovie();
+         showActors();
          addMovie(movieInfo);
+
          console.log(movieInfo)
       }
       })
@@ -105,14 +110,14 @@ $('#searchInput').keydown(function(e) {
 
 
 
-// function to show major actors on hover of item
+// function to show major actors and plot on hover of item
 function showActors () {
-   $('.movieCard').hover(
-      function(e) {
-         $(this).addClass()
-      },
-      function() {
-         $(this).removeClass()
+         $('.movieCard').hover(function(e) {
+         $(this).children('p').removeClass('hidden')
+
+            // removeClass('hidden');
+      }, function() {
+         $(this).children('p').addClass('hidden')
       }
    )
 }
@@ -160,6 +165,26 @@ function addMovie(array) {
 }
 
 
+//create remove button for DI card, function will remove movie from
+function removeMovie() {
+   $('.glyphicon-minus-sign').click(function(e) {
+      let thisKey = e.target.parentElement.parentElement.firstElementChild.innerHTML
+      // console.log(`https://movie-madness-d8291.firebaseio.com/${currentUID}/${thisKey}.json`)
+      var xhr = new XMLHttpRequest ()
+      xhr.addEventListener ('load', () => {})
+      xhr.open ('DELETE', `https://movie-madness-d8291.firebaseio.com/${currentUID}/${thisKey}.json` )
+      xhr.send()
+      // showMyMovies(`https://movie-madness-d8291.firebaseio.com/${currentUID}.json`)
+   })
+}
+
+function getMyMovies() {
+   $.get(
+      `https://movie-madness-d8291.firebaseio.com/.json`,
+      )
+}
+
+
 
 // pull movies down from firebase to myMovies
 function showMyMovies(url) {
@@ -181,14 +206,17 @@ function showMyMovies(url) {
                   <a><span class="glyphicon glyphicon-minus-sign remove">Remove from My Movies</span></a>
                   My Rating: <form class="myRating" id="${id}"><input class="rating" pattern="[1-5]{1}" type="text" maxlength="1" ></form>
                   <p class="hidden">${myMovies[id].movie.imdbID}</p>
-                  <p class="hidden">${myMovies[id].movie.Actors}</p>
+                  <p class="actors hidden">${myMovies[id].movie.Actors}</p>
+                  <p class="plot hidden">${myMovies[id].movie.Plot}</p>
                </div>`)
          })
       })
    // once myMovies are loaded, enable the delete and the rate functions
       .then(function() {
+         showActors()
          removeMovie()
          rateMovie()
+         console.log(myMovies)
       })
 
 }
