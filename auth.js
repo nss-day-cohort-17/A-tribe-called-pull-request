@@ -100,6 +100,7 @@ $('.my-movies-tab').click(() => {
 		$('.login-page').addClass('hidden')
 		$('.welcome-page').addClass('hidden')
 		$('.register-page').addClass('hidden')
+		$('.madness-page').addClass('hidden')
 		$('#searchResults').addClass('hidden')
 		$('.my-movies-page').removeClass('hidden')
 		showMyMovies(`https://movie-madness-d8291.firebaseio.com/${currentUID}.json`)
