@@ -36,10 +36,12 @@ $('.login-page form').submit( (e) => {
       .then(() => $('form')[0].reset())
       .then( () => {
       // if logged in, switch 'login-tab' to 'logout-tab' and remove 'register-tab'
+      //shows my movies page
          if (firebase.auth().currentUser !== null) {
             $('.login-tab').addClass('hidden');
             $('.logout-tab').removeClass('hidden')
-            $('register-tab').addClass('hidden')
+            $('my-movies-page').removeClass('hidden')
+            $('.register-tab').addClass('hidden')
          }
       })
       .then(() => {

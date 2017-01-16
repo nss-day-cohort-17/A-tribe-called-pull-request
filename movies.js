@@ -49,14 +49,15 @@ function parseIDs (ids) {
       // populate searchResults div with search results
             $('#searchResults').append(`
                <div class="movieCard text-center">
+                     <p class="hidden">${i}</p>
                      <h5>${movieInfo[i].Title}</h5>
                      <img class="img-responsive" src="${movieInfo[i].Poster}" />
                      <h6>${movieInfo[i].Year}</h6>
                      <a><span class="glyphicon glyphicon-plus-sign add"></span></a>
                      <a><span class="glyphicon glyphicon-minus-sign remove"></span></a>
-                     Wish List <input class="wishList" type="checkbox">
-                     Rating<input class="rating" type="text" maxlength="1"></input>
+                     Rating: <input class="rating" id="rating" type="text" maxlength="1"></input>
                      <p class="hidden">${movieInfo[i].imdbID}</p>
+                     <p class="hidden">${movieInfo[i].Actors}</p>
                </div>`)
          })
          .then(function() {
@@ -92,6 +93,7 @@ function resetSearch() {
 // add listener for input field on enter key
 $('#searchInput').keydown(function(e) {
    if (e.originalEvent.code === "Enter") {
+      $('.welcome-page').addClass('hidden')
       resetSearch()
       promiseChain(`http://www.omdbapi.com/?s=${searchInput.val()}`)
    }
@@ -142,19 +144,30 @@ $('#searchInput').focus(() => {
 //create add button for DI card, function will add movie to personal firebase object
 function addMovie() {
    $('.add').click(function(e) {
-   var selectedMovie = e.currentTarget.parentElement.parentElement;
-   // $('.movieCard').each()
-         // return selectedMovie[i]
-   console.log(selectedMovie)
+      let thisIndex = e.target.parentElement.parentElement.firstElementChild.innerHTML
+      $.post(
+         `https://movie-madness-d8291.firebaseio.com/.json`,
+         JSON.stringify({ movie : movieInfo[thisIndex] })
+      ).then(res => console.log(res.name))
    })
 }
 
 //create remove button for DI card, function will remove movie from
 function removeMovie() {
    $('.remove').click(function(e) {
-      // console.log(e.currentTarget)
+      console.log(e)
    })
 }
+
+function getMyMovies() {
+   $.get(
+      `https://movie-madness-d8291.firebaseio.com/.json`,
+      )
+}
+
+
+
+
 // personal firebase object
 
 //RATING INPUT*********************
