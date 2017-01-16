@@ -64,7 +64,7 @@ function parseIDs (ids) {
          })
          .then(function() {
             if(i === ids.length - 1) {
-         addMovie();
+         addMovie(movieInfo);
          console.log(movieInfo)
       }
       })
@@ -143,9 +143,8 @@ $('#searchInput').focus(() => {
 })
 
 
-//ADD-REMOVE BUTTONS*******************
-//create add button for DI card, function will add movie to personal firebase object
-function addMovie() {
+// function to add movie to personal firebase object
+function addMovie(array) {
    $('.add').click(function(e) {
       if (firebase.auth().currentUser === null) {
          alert("You must be logged in to add flicks to *My Movies*")
@@ -153,23 +152,10 @@ function addMovie() {
       let thisIndex = e.target.parentElement.parentElement.firstElementChild.innerHTML
       $.post(
          `https://movie-madness-d8291.firebaseio.com/${currentUID}.json`,
-         JSON.stringify({ movie : movieInfo[thisIndex] })
+         JSON.stringify({ movie : array[thisIndex] })
       )
-      .then(res => console.log(res.name))
+      .then(res => console.log(res.name + " added to my movies"))
       }
-   })
-}
-
-//create remove button for DI card, function will remove movie from
-function removeMovie() {
-   $('.glyphicon-minus-sign').click(function(e) {
-      let thisKey = e.target.parentElement.parentElement.firstElementChild.innerHTML
-      // console.log(`https://movie-madness-d8291.firebaseio.com/${currentUID}/${thisKey}.json`)
-      var xhr = new XMLHttpRequest ()
-      xhr.addEventListener ('load', () => {})
-      xhr.open ('DELETE', `https://movie-madness-d8291.firebaseio.com/${currentUID}/${thisKey}.json` )
-      xhr.send()
-      // showMyMovies(`https://movie-madness-d8291.firebaseio.com/${currentUID}.json`)
    })
 }
 
@@ -193,12 +179,13 @@ function showMyMovies(url) {
                   <h5>${myMovies[id].movie.Year}</h5>
                   <img class="img-responsive" src="${myMovies[id].movie.Poster}" />
                   <a><span class="glyphicon glyphicon-minus-sign remove">Remove from My Movies</span></a>
-                  My Rating: <form id="myRating"><input class="rating" pattern="[1-5]{1}" id="rating" type="text" maxlength="1" ></form>
+                  My Rating: <form class="myRating" id="${id}"><input class="rating" pattern="[1-5]{1}" type="text" maxlength="1" ></form>
                   <p class="hidden">${myMovies[id].movie.imdbID}</p>
                   <p class="hidden">${myMovies[id].movie.Actors}</p>
                </div>`)
          })
       })
+   // once myMovies are loaded, enable the delete and the rate functions
       .then(function() {
          removeMovie()
          rateMovie()
@@ -206,15 +193,32 @@ function showMyMovies(url) {
 
 }
 
+
+//create remove button for DI card, function will remove movie from
+function removeMovie() {
+   $('.glyphicon-minus-sign').click(function(e) {
+      let thisKey = e.target.parentElement.parentElement.firstElementChild.innerHTML
+      // console.log(`https://movie-madness-d8291.firebaseio.com/${currentUID}/${thisKey}.json`)
+      var xhr = new XMLHttpRequest ()
+      xhr.addEventListener ('load', () => {})
+      xhr.open ('DELETE', `https://movie-madness-d8291.firebaseio.com/${currentUID}/${thisKey}.json` )
+      xhr.send()
+      console.log(`${thisKey} removed from my movies`)
+      $('e.target.parentElement.parentElement').addClass('hidden')
+   })
+}
+
+
 // function to add rating to movie card
 function rateMovie () {
 // rating submission on .submit
-   $('#myRating').submit(function(e) {
-      console.log('hi')
-      //  if ($('#rating').val()) {
-      //    let myRating = $('#rating').val()
-      //    rateMovie(myRating)
-      //  }
-   e.preventDefault()
+   $('.myRating').submit(function(e) {
+      console.log(this.id)
+       if ($('.rating').val()) {
+         let myRating = $('.rating').val()
+         console.log(myRating)
+         // $('this:parent').addClass('hidden')
+       }
+      e.preventDefault()
    })
 }
