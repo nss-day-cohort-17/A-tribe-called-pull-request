@@ -59,12 +59,14 @@ function parseIDs (ids) {
                      <a><span class="glyphicon glyphicon-plus-sign add"></span></a>
                      <p class="text-left">Add to * My Movies *</p>
                      <p class="hidden">${movieInfo[i].imdbID}</p>
-                     <p class="hidden">${movieInfo[i].Actors}</p>
+                     <p class="actors hidden">${movieInfo[i].Actors}</p><br>
+                     <p class="plot hidden">${movieInfo[i].Plot}</p>
                </div>`)
          })
          .then(function() {
             if(i === ids.length - 1) {
          addMovie();
+         showActors();
          console.log(movieInfo)
       }
       })
@@ -105,14 +107,14 @@ $('#searchInput').keydown(function(e) {
 
 
 
-// function to show major actors on hover of item
+// function to show major actors and plot on hover of item
 function showActors () {
-   $('.movieCard').hover(
-      function(e) {
-         $(this).addClass()
-      },
-      function() {
-         $(this).removeClass()
+         $('.movieCard').hover(function(e) {
+         $(this).children('p').removeClass('hidden')
+
+            // removeClass('hidden');
+      }, function() {
+         $(this).children('p').addClass('hidden')
       }
    )
 }
@@ -200,13 +202,16 @@ function showMyMovies(url) {
                   <a><span class="glyphicon glyphicon-minus-sign remove">Remove from My Movies</span></a>
                   My Rating: <form id="myRating"><input class="rating" pattern="[1-5]{1}" id="rating" type="text" maxlength="1" ></form>
                   <p class="hidden">${myMovies[id].movie.imdbID}</p>
-                  <p class="hidden">${myMovies[id].movie.Actors}</p>
+                  <p class="actors hidden">${myMovies[id].movie.Actors}</p>
+                  <p class="plot hidden">${myMovies[id].movie.Plot}</p>
                </div>`)
          })
       })
       .then(function() {
+         showActors()
          removeMovie()
          rateMovie()
+         console.log(myMovies)
       })
 
 }
