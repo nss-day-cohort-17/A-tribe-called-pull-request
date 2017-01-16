@@ -64,7 +64,7 @@ function parseIDs (ids) {
          })
          .then(function() {
             if(i === ids.length - 1) {
-         addMovie();
+         addMovie(movieInfo);
          console.log(movieInfo)
       }
       })
@@ -144,7 +144,7 @@ $('#searchInput').focus(() => {
 
 
 // function to add movie to personal firebase object
-function addMovie() {
+function addMovie(array) {
    $('.add').click(function(e) {
       if (firebase.auth().currentUser === null) {
          alert("You must be logged in to add flicks to *My Movies*")
@@ -152,7 +152,7 @@ function addMovie() {
       let thisIndex = e.target.parentElement.parentElement.firstElementChild.innerHTML
       $.post(
          `https://movie-madness-d8291.firebaseio.com/${currentUID}.json`,
-         JSON.stringify({ movie : movieInfo[thisIndex] })
+         JSON.stringify({ movie : array[thisIndex] })
       )
       .then(res => console.log(res.name + " added to my movies"))
       }
