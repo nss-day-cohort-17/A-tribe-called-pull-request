@@ -129,6 +129,7 @@ $('.register-link').click((e) => {
 // show user login on login tab click
 $('.login-tab').click((e) => {
    $('form')[1].reset()
+   $('.madness-page').empty()
    $('#searchResults').html("")
    $('.login-page').removeClass('hidden')
    $('.register-page').addClass('hidden')
@@ -149,12 +150,15 @@ function addMovie(array) {
       if (firebase.auth().currentUser === null) {
          alert("You must be logged in to add flicks to *My Movies*")
       } else {
-      let thisIndex = e.target.parentElement.parentElement.firstElementChild.innerHTML
-      $.post(
-         `https://movie-madness-d8291.firebaseio.com/${currentUID}.json`,
-         JSON.stringify({ movie : array[thisIndex] })
-      )
-      .then(res => console.log(res.name + " added to my movies"))
+         let thisIndex = e.target.parentElement.parentElement.firstElementChild.innerHTML
+         $.post(
+            `https://movie-madness-d8291.firebaseio.com/${currentUID}.json`,
+            JSON.stringify({ movie : array[thisIndex] })
+         )
+         .then(res => console.log(res.name + " added to my movies"))
+         .then( () => {
+            $(e.target).parentsUntil('div#searchResults').remove()
+         })
       }
    })
 }
@@ -204,7 +208,7 @@ function removeMovie() {
       xhr.open ('DELETE', `https://movie-madness-d8291.firebaseio.com/${currentUID}/${thisKey}.json` )
       xhr.send()
       console.log(`${thisKey} removed from my movies`)
-      $('e.target.parentElement.parentElement').addClass('hidden')
+      $(e.target).parentsUntil('div.my-movies-page').remove()
    })
 }
 
